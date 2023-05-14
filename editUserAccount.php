@@ -73,6 +73,23 @@ $account = $accountController->getAllAccount($conn);
             font-weight: bold;
             text-align: center;
         }
+
+        .add-Account-container{
+            display: inline-block;
+            padding: 5px;
+            background-color: #5D3FD3;            
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-top:10px;
+            margin-left:850px;
+        }
+
+        .add-Account-container:hover{
+            background-color: green; 
+        }
     </style>
     
 
@@ -126,10 +143,11 @@ $account = $accountController->getAllAccount($conn);
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
         <!-- Add menu Button-->
         <div class="add-Account-container">
-            <a href="addAccount.php" class="add-account-button">Add account</a>
-        </div>
+            <a href="addAccount.php" class="add-account-button"style = "color:white; text-decoration: none;" >Add account</a>
+        
     </div>
 </body>
 
