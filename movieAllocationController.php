@@ -72,13 +72,13 @@ class movieAllocationController
         $counter = 0;
     
         foreach ($movieAllocations as $movie => $data) {
-            if ($counter % 3 === 0) {
-                $output .= '<div class="row">';
-            }
+            // if ($counter % 3 === 0) {
+            //     $output .= '<div class="row">';
+            // }
     
             $output .= '<div class="item">';
             $output .= '<img src="' . $data['image'] . '" alt="' . $movie . '">';
-            $output .= '<div class="dropdown">';
+            $output .= '<div class="dropdown1">';
             $output .= '<select name="cinema[' . $data['movie_name'] . ']">';
     
             for ($i = 1; $i <= 6; $i++) {
@@ -91,9 +91,9 @@ class movieAllocationController
             $output .= '</div>';
             $output .= '</div>';
     
-            if ($counter % 3 === 2 || $counter === count($movieAllocations) - 1) {
-                $output .= '</div>';
-            }
+            // if ($counter % 3 === 2 || $counter === count($movieAllocations) - 1) {
+            //     $output .= '</div>';
+            // }
     
             $counter++;
         }
