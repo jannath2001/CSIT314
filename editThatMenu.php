@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("editThatMenuController.php");
 include("navBar.php");
-include("footer.php");
+
 
 $menuEditController = new menuUpdateController($conn);
 ?>

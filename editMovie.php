@@ -5,7 +5,6 @@ include("editMovieController.php");
 include("footer.php");
 
 
-
 // create a new instance of the movie controller
 $movieController = new MovieController();
 
@@ -42,7 +41,6 @@ $movies = $movieController->getAllMovies($conn);
             border-collapse: collapse;
             border: 1px solid black;
             padding: 4px;
-            cellspacing: 50px;
         }
 
         th,
@@ -74,6 +72,32 @@ $movies = $movieController->getAllMovies($conn);
             font-weight: bold;
             text-align: center;
         }
+
+       .add-movie-container{       
+            display: inline-block;
+            padding: 5px;
+            background-color: #5D3FD3;            
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-top:10px;
+            margin-left:965px;
+            
+             
+       }
+
+       .add-movie-container:hover{       
+            
+            background-color: green; 
+            
+            
+             
+       }
+
+      
+
     </style>
     
 
@@ -100,9 +124,7 @@ $movies = $movieController->getAllMovies($conn);
                 </tr>
             </thead>
             <tbody>
-                <?php 
-                
-                foreach ($movies as $movie): ?>
+                <?php foreach ($movies as $movie): ?>
                     <tr>
                         <td>
                             <?php echo $movie['movie_id']; ?>
@@ -132,8 +154,7 @@ $movies = $movieController->getAllMovies($conn);
 
                         <!-- Delete movie button -->
                         <form method="post" action="deleteMovie.php">
-                        <input type="hidden" name="movie_id" value="<?php echo $movie['movie_id']; ?>">
-                           
+                            <input type="hidden" name="movie_id" value="<?php echo $movie['movie_id']; ?>">
                             <button type="submit" class="delete" onclick="return confirm('Are you sure you want to delete this movie?')">Delete</button>
                         </form>
                         </td>
@@ -141,10 +162,12 @@ $movies = $movieController->getAllMovies($conn);
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <div class="add-movie-container"> 
-            <a href="addMovie.php" class="add-movie-button">Add Movie</a> 
         </div>
-    </div>
+        <!-- Add Movie Button-->
+        <div class="add-movie-container">
+            <a href="addMovie.php" class="add-movie-button" style = "color:white; text-decoration: none;">Add Movie</a>
+        </div>
+    
 </body>
 
 </html>

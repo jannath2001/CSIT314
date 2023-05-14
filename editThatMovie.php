@@ -1,8 +1,8 @@
 <?php
-
 include("DBTicketBooking.php"); // include the database connection file
 include("navBar.php");
 include("editThatMovieController.php");
+include("footer.php");
 
 $movieEditController = new movieUpdateController($conn);
 ?>

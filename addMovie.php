@@ -2,6 +2,7 @@
 include("DBTicketBooking.php");
 include("addMovieController.php");
 include("navBar.php");
+include("footer.php");
 
 
 // Create an object of addMovieController class
@@ -47,7 +48,7 @@ if (isset($_POST['addMovieButton'])) {
 
         h1 {
             color: white;
-            margin-left: 830px;
+            margin-left: 550px;
             margin-top: 100px;
         }
 

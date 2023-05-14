@@ -1,7 +1,7 @@
 <?php
 include("DBTicketBooking.php");
-include("editMenuController.php");
 include("navBar.php");
+include("editMenuController.php");
 include("footer.php");
 
 // create a new instance of the movie controller
@@ -72,6 +72,23 @@ $foodBeverage = $MenuController->getAllFood($conn);
             font-weight: bold;
             text-align: center;
         }
+
+        #addcontainer{
+            display: inline-block;
+            padding: 5px;
+            background-color: #5D3FD3;            
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-top:10px;
+            margin-left:800px;
+        }
+
+        #addcontainer:hover{
+            background-color: green; 
+        }
     </style>
     
 
@@ -129,11 +146,12 @@ $foodBeverage = $MenuController->getAllFood($conn);
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <!-- Add menu Button-->
-        <div class="add-food&beverage-container">
-            <a href="addMenu.php" class="add-food&beverage-button">Add Food or Beverages</a>
         </div>
-    </div>
+        <!-- Add menu Button-->
+        <div class="add-food&beverage-container" id="addcontainer">
+            <a href="addMenu.php" class="add-food&beverage-button" style = "color:white; text-decoration: none;">Add Food or Beverages</a>
+        </div>
+    
 </body>
 
 </html>

@@ -10,12 +10,12 @@ class addAccountController {
 
 
     // Method to add a menu to the database
-    public function addAccount($user_id, $email, $password, $user_type) {
+    public function addAccount($email, $password, $user_type) {
         // Prepare the insert statement
-        $stmt = $this->conn->prepare("INSERT INTO login (user_id, email, password, user_type) VALUES (?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO login (email, password, user_type) VALUES ( ?, ?, ?)");
 
         // Bind the parameters
-        $stmt->bind_param("isss", $user_id, $email, $password, $user_type);
+        $stmt->bind_param("sss", $email, $password, $user_type);
 
         // Execute the statement
         if ($stmt->execute()) {

@@ -2,20 +2,22 @@
 include("DBTicketBooking.php");
 include("addAccountController.php");
 include("navBar.php");
+include("footer.php");
+
 
 // Create an object of addMenuController class
 $addAccountController = new addAccountController($conn);
 
 if (isset($_POST['addAccountButton'])) {
     // Get the form data
-    $user_id = $_POST['user_id'];
+    
     $email = $_POST['email'];
     $password = $_POST['password'];
     $user_type = $_POST['user_type'];
 
 
     // Call addMovie function of the addMovieController object to add the movie to the database
-    if ($addAccountController->addAccount($user_id, $email, $password, $user_type)) {
+    if ($addAccountController->addAccount($email, $password, $user_type)) {
         // Redirect to a success page
         header("Location: editUserAccount.php");
         exit();
@@ -130,8 +132,8 @@ if (isset($_POST['addAccountButton'])) {
         <form action="addAccount.php" method="POST">
 
 
-        <label for="user_id">Enter the User ID:</label>
-            <input type="number" name="user_id" placeholder="Enter the User ID:">
+        <!-- <label for="user_id">Enter the User ID:</label>
+            <input type="number" name="user_id" placeholder="Enter the User ID:"> -->
             <br><br>
             <label for="email">Enter Email:</label>
             <input type="text" name="email" placeholder="Enter email" required>

@@ -6,7 +6,6 @@ include("footer.php");
 
 $accountEditController = new accountUpdateController($conn);
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -54,30 +53,26 @@ $accountEditController = new accountUpdateController($conn);
                 // Call the updateMenuDetails method
                 $accountEditController->updateAccountDetails($id, $updatedData);
             }
-    
         ?>
-
-
-
         <div class=table-body>
-            <form action="editThatAccount.php?user_id=<?php echo $_GET['user_id']; ?>" method="POST">
-                <input type="hidden" name="user_id" value="<?php echo $_GET['user_id']; ?>">
+            <form action="editThatAccount.php?user_id=<?php echo $id ?>" method="POST">
+                <input type="hidden" name="user_id" value="<?php echo $id ?>">
 
                 <div class="mb-3">
                     <label for="user_id">User ID:</label>
-                    <input type="number" name="user_id" value="<?= $result['user_id'] ?>" placeholder="Enter the ID"
+                    <input type="number" name="user_id" value="<?=$result['user_id'] ?>" placeholder="Enter the ID"
                         Required class="form-control">
                 </div>
 
                 <div class="mb-3">
                     <label for="email">Email:</label>
-                    <input type="text" name="email" value="<?= $result['email'] ?>"
+                    <input type="text" name="email" value="<?=$result['email'] ?>"
                         placeholder="Enter the email" Required>
                 </div>
 
                 <div class="mb-3">
                     <label for="password">Password:</label>
-                    <input type="text" name="password" value="<?= $result['password'] ?>" placeholder="Enter the password"
+                    <input type="text" name="password" value="<?=$result['password'] ?>" placeholder="Enter the password"
                         Required>
                 </div>
 
@@ -98,8 +93,7 @@ $accountEditController = new accountUpdateController($conn);
                 </div>
             </form>
 
-            <?php
-           
+            <?php 
         }
         else
         {

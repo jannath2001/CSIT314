@@ -2,6 +2,7 @@
 include("DBTicketBooking.php");
 include("addRewardController.php");
 include("navBar.php");
+include("footer.php");
 
 // Create an object of addMenuController class
 $addRewardController = new addRewardController($conn);

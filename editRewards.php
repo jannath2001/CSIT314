@@ -3,7 +3,6 @@ include("DBTicketBooking.php");
 include("editRewardsController.php");
 include("navBar.php");
 include("footer.php");
-
 // create a new instance of the movie controller
 $rewardsController = new rewardsController();
 
@@ -72,6 +71,23 @@ $rewards = $rewardsController->getAllRewards($conn);
             font-weight: bold;
             text-align: center;
         }
+
+        .add-Rewards-container{
+            display: inline-block;
+            padding: 5px;
+            background-color: #5D3FD3;            
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-top:10px;
+            margin-left:850px;
+        }
+
+        .add-Rewards-container:hover{
+            background-color: green; 
+        }
     </style>
     
 
@@ -125,12 +141,12 @@ $rewards = $rewardsController->getAllRewards($conn);
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
         <!-- Add menu Button-->
         <div class="add-Rewards-container">
-            <a href="addReward.php" class="add-Rewards-button">Add rewards</a>
-        </div>
+            <a href="addReward.php" class="add-Rewards-button" style = "color:white; text-decoration: none;">Add rewards</a>
+        
     </div>
-
 </body>
 
 </html>

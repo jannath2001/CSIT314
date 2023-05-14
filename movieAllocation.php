@@ -2,6 +2,7 @@
 include("DBTicketBooking.php");
 include("navBar.php");
 include("movieAllocationController.php");
+include("footer.php");
 
 $movieAllocationController = new movieAllocationController($conn);
 
@@ -33,7 +34,7 @@ if (isset($_POST['submit'])) {
 
 <head>
 <style>
-        body {
+               body {
             background-color: black;
             color: white;
             font-family: Arial, sans-serif;
@@ -52,9 +53,12 @@ if (isset($_POST['submit'])) {
         }
 
         .container {
+            position: absolute;
+            left: 27%; 
+            top: 20%;                     
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-wrap: wrap;             
+            justify-content: flex-start;
             margin-bottom: 50px;
         }
 
@@ -125,45 +129,9 @@ if (isset($_POST['submit'])) {
     </div>
 </body>
 
-<!--footer------------->
-<div class="box4">
-    <div class="column">
-        <br />
-        <select style="background-color: grey;" name="lang" id="lang">
-            <option value="En">English</option>
-        </select>
-    </div>
-    <div class="column">
-        <h3>NAVIGATION</h3>
-        <p>Home</p>
-        <p>FAQ</p>
-        <p>Investor Relations</p>
-        <p>Jobs</p>
-        <p>About Us</p>
-        <p>Help Centre</p>
-    </div>
-    <div class="column">
-        <h3>LEGAL</h3>
-        <p>Privacy Policy</p>
-        <p>Terms of Service</p>
-        <p>Cookie Preferences</p>
-        <p>Corporate Information</p>
-    </div>
-    <div class="column">
-        <h3>TALK TO US</h3>
-        <p>jannath99@gmail.com</p>
-        <p>+65 9376 8735 </p>
-    </div>
-    <div class="column">
-        <h3>Follow us</h3>
-        <i style="color:white;" class="fa fa-instagram"></i>
-        <i style="color:white;" class="fa fa-facebook"></i>
-        <i style="color:white;" class="fa fa-twitter"></i>
-        <pre style="font-size: 10px; color:white;">
-          <i class="fa fa-copyright"></i>2023 oatmilk. All Rights Reserved
-                  </pre>
-    </div>
-    </body>
+
+
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>

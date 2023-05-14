@@ -44,7 +44,7 @@ class accountUpdateController {
         }
         
         // Assuming the update is successful
-        header("Location: editUserAccount.php?user_id=" . $accountId);
+        header("Location: editUserAccount.php?");
         exit();
     }
 }

@@ -3,6 +3,7 @@ include("DBTicketBooking.php");
 include("editThatRewardController.php");
 include("navBar.php");
 
+
 $rewardEditController = new rewardUpdateController($conn);
 ?>
 

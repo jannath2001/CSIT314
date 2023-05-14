@@ -1,6 +1,6 @@
 <!-- Start the Session -->
 <?php
-session_start();
+
 
 include("DBTicketBooking.php");
 include("navBar.php");
@@ -32,8 +32,8 @@ include("footer.php");
       margin-bottom: 50px;
     }
     .item {
-      width: 300px;
-      height:500px;      
+      width: 250px;
+      height:350px;      
       margin: 20px;
       padding: 10px 10px 30px 10px;
       background-color: #333;
@@ -90,7 +90,7 @@ include("footer.php");
         <p>Price: $<?php echo $price ?></p>
         <p>Rating: <?php echo $rating ?>/10</p>
         <p>Format: <?php echo $format ?></p> -->
-        <input type="number" id="number4" min="0" max ="50" step="1" placeholder="SELECT"> 
+
         <input style = "width:20%;" type = "text" value =$<?php echo $price ?> disabled>        
         <button onclick="window.location.href='bookings.php?id=<?php echo $movie_id ?>'">Book Now</button>
       </div>
@@ -105,45 +105,7 @@ include("footer.php");
     ?>
     </div>
 
-
-	<!--footer------------->
-	<div class="box4">
-                <div class="column">
-                  <br/>
-                  <select style ="background-color: grey;" name="lang" id="lang">
-                    <option value="En">English</option>          
-                  </select>
-                </div>
-                <div class="column">
-                  <h3>NAVIGATION</h3>
-                  <p>Home</p>
-                  <p>FAQ</p>
-                  <p>Investor Relations</p>
-                  <p>Jobs</p>
-                  <p>About Us</p>
-                  <p>Help Centre</p>
-                </div>
-                <div class="column">
-                  <h3>LEGAL</h3>
-                  <p>Privacy Policy</p>
-                  <p>Terms of Service</p>
-                  <p>Cookie Preferences</p>
-                  <p>Corporate Information</p>
-                </div>
-                <div class="column">
-                  <h3>TALK TO US</h3>
-                  <p>jannath99@gmail.com</p>
-                  <p>+65 9376 8735 </p>
-                </div>
-                <div class="column">
-                  <h3>Follow us</h3>
-                  <i style ="color:white;" class="fa fa-instagram"></i>
-                  <i style ="color:white;" class="fa fa-facebook"></i>
-                  <i style ="color:white;" class="fa fa-twitter"></i>
-          <pre style="font-size: 10px; color:white;">      
-          <i class="fa fa-copyright"></i>2023 oatmilk. All Rights Reserved
-                  </pre>
-                </div>                  
+                
               </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
