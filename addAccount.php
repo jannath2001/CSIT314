@@ -11,8 +11,6 @@ if (isset($_POST['addAccountButton'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $user_type = $_POST['user_type'];
-
-
     // Call addMovie function of the addMovieController object to add the movie to the database
     if ($addAccountController->addAccount($email, $password, $user_type)) {
         // Redirect to a success page
