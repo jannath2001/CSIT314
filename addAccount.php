@@ -3,14 +3,11 @@ include("DBTicketBooking.php");
 include("addAccountController.php");
 include("navBar.php");
 include("footer.php");
-
-
 // Create an object of addMenuController class
 $addAccountController = new addAccountController($conn);
 
 if (isset($_POST['addAccountButton'])) {
     // Get the form data
-    
     $email = $_POST['email'];
     $password = $_POST['password'];
     $user_type = $_POST['user_type'];
