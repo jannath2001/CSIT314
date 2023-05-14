@@ -105,18 +105,3 @@ include("footer.php");
 </html>
 
 
- <!--    <div class="item">
-      <img src="reward2.jpg" alt="Item 2">
-      <h2 style ="color:white;">Reward 2</h2>      
-      <button>Redeem</button>
-    </div>
-    <div class="item">
-      <img src="reward3.jpg" alt="Item 3">
-      <h2 style ="color:white;">Reward 3</h2>      
-      <button>Redeem</button>
-    </div>
-    <div class="item">
-      <img src="reward4.jpg" alt="Item 4">      
-      <h2 style ="color:white;">Reward 3</h2>      
-      <button>Redeem</button>
-    </div> -->

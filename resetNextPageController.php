@@ -6,6 +6,7 @@ include("DBTicketBooking.php");
 class passwordUpdateController
 {
     private $conn;
+    private $errors = array();
 
     public function __construct($conn) {
         $this->conn = $conn;
@@ -49,22 +50,3 @@ class passwordUpdateController
     }
 }
 
-class FormValidator {
-    private $errors = array();
-
-    public function __construct($conn) {
-        $this->conn = $conn;
-    }
-
-    public function validatePasswords($password, $cfmPassword) {
-        if ($password !== $cfmPassword) {
-            $this->errors[] = "New password and confirm password fields must match.";
-        }
-
-        if (strlen($password) < 8) {
-            $this->errors[] = "New password must be at least 8 characters long.";
-        }
-
-        return $this->errors;
-    }
-}
