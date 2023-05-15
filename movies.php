@@ -73,48 +73,52 @@ $movies = $movieController->getMovies();
   <h1>Movies</h1>
   <div class="container">
 
-    <?php
-    foreach ($movies as $movie) {
-      $movie_id = $movie['movie_id'];
-      $movie_name = $movie['movie_name'];
-      $availability = $movie['availability'];
-      $price = $movie['price'];
-      $rating = $movie['rating'];
-      $format = $movie['format'];
-      $image = $movie['image'];
-      ?>
-
-      <div class="item">
-        <img src="<?php echo $image ?>" alt="<?php echo $movie_name ?>">
-        <!-- <h2>
-          <?php echo $movie_name ?>
-        </h2>
-        <p>Status:
-          <?php echo $availability ?>
-        </p>
-        <p>Price: $
-          <?php echo $price ?>
-        </p>
-        <p>Rating:
-          <?php echo $rating ?>/10
-        </p>
-        <p>Format:
-          <?php echo $format ?>
-        </p> -->
-        <input style="width:20%;" type="text" value="$<?php echo $price ?>" disabled>
-        <button onclick="window.location.href='bookMovie.php?id=<?php echo $movie_id ?>'">Book Now</button>
-      </div>
-
-      <?php
-    }
-
-    if (empty($movies)) {
-      echo "No movies available.";
-    }
-
-    // Close database connection
-    mysqli_close($conn);
+ 
+  <?php
+  foreach ($movies as $movie) {
+    $movie_id = $movie['movie_id'];
+    $movie_name = $movie['movie_name'];
+    $availability = $movie['availability'];
+    $price = $movie['price'];
+    $rating = $movie['rating'];
+    $format = $movie['format'];
+    $image = $movie['image'];
     ?>
+
+    <div class="item">
+      <img src="<?php echo $image ?>" alt="<?php echo $movie_name ?>">
+      <!-- <h2>
+        <?php echo $movie_name ?>
+      </h2>
+      <p>Status:
+        <?php echo $availability ?>
+      </p>
+      <p>Price: $
+        <?php echo $price ?>
+      </p>
+      <p>Rating:
+        <?php echo $rating ?>/10
+      </p>
+      <p>Format:
+        <?php echo $format ?>
+      </p> -->
+
+      <form method="post" action="bookMovie.php">
+      <input type="hidden" name="movie_id" value="<?php echo $movie_id ?>">
+      <input style="width:20%;" type="text" value="$<?php echo $price ?>" disabled>
+      <button type="submit" name="bookNow">Book Now</button>
+    </form>
+     
+    </div>
+
+    <?php
+  }
+
+  if (empty($movies)) {
+    echo "No movies available.";
+  }
+  ?>
+
 
   </div>
 </body>
@@ -124,3 +128,6 @@ $movies = $movieController->getMovies();
   integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
 </html>
+
+
+
