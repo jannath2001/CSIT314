@@ -3,6 +3,11 @@
 include("DBTicketBooking.php");
 include("navBar.php");
 include("footer.php");
+include("menuController.php");
+
+$menuController = new MenuController($conn);
+$menu = $menuController->getMenu();
+$menu_id = $_GET['menu_id'];
 ?>
 
 <!DOCTYPE html>
@@ -93,42 +98,43 @@ include("footer.php");
     <h1>Our Menu</h1>
     <div class="container">
 
-
+   
+    <form method="post" action="checkout.php">
     <?php
-    //Retrieve movie data from database
-    $sql = "SELECT * FROM food_beverage";
-    $result = mysqli_query($conn, $sql);
-
-    //Display movie data if available
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        $item_name = $row['item_name'];
-        $description = $row['description'];
-        $price = $row['price'];
-        $image = $row['image'];
+    
+    foreach($menu as $menus){
+        $menu_id = $menus['menu_id'];
+        $item_name = $menus['item_name'];
+        $description = $menus['description'];
+        $price = $menus['price'];
+        $image = $menus['image'];
     ?>
-
-<div class="container"> 
-    <div class="item">
-        <img src="<?php echo $image ?>" alt="<?php echo $item_name ?>">
-        <h2><?php echo $item_name ?></h2>
-        <p><?php echo $description ?></p>
-        
-
-        <input style = "width:20%;" type = "text" value =$<?php echo $price ?> disabled>        
-        <input type="number" id="number2" min="0" max ="50" step="1" placeholder="SELECT"> 
-        <button onclick="window.location.href='bookings.php?id=<?php echo $menu_id ?>'">Next</button>
-      </div>
-      </div>
+        <div class="item">
+            <img src="<?php echo $image ?>" alt="<?php echo $item_name ?>">
+            <h2><?php echo $item_name ?></h2>
+            <p><?php echo $description ?></p>
+            <input style="width:20%;" type="text" value="$<?php echo $price ?>" disabled>        
+            <input type="checkbox" name="menu_item[]" value="<?php echo $menu_id ?>" id="number<?php echo $menu_id ?>" />
+            <label for="number<?php echo $menu_id ?>">SELECT</label>
+        </div>
+     <?php
+    }
+    //Close database connection
+    mysqli_close($conn);
+     ?>
+    
+    <button type="submit">Next</button>
+    </form>
     <?php
-        }
-      } else {
-        echo "No food and beverage available.";
-      }
+     if(isset($_POST['menu_item[]'])) {
+      // Checkbox is checked
+      $checkbox_value = $_POST['checkbox_name'];
+  } else {
+      // Checkbox is not checked
+  }
 
-      //Close database connection
-      mysqli_close($conn);
-    ?>
+     ?>
+
     </div>
 
                 
@@ -136,3 +142,5 @@ include("footer.php");
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </html>
+<!-- 
+
