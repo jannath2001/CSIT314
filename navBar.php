@@ -1,5 +1,6 @@
 <?php
 include("DBTicketBooking.php");
+include("loyaltyPoints.php");
 
 //Start the Session
 if (session_status() === PHP_SESSION_NONE) {
@@ -14,7 +15,7 @@ else{
     $user_type = "";
 }
 
-
+$loyaltyPoints = Loyalty::getLoyaltyPoints();
 // rest of the code
 ?>
 
@@ -109,7 +110,11 @@ else{
             </a>
             <ul class="dropdown-menu">
                 <!-- //items in your drop out// -->
+                <b>
+               <li class="dropdown-item">Loyalty Points:<?php echo $loyaltyPoints; ?>
+            </b></li>
                 <li><a class="dropdown-item" href="promotions.php">View Promotions</a></li>
+                <li><a class="dropdown-item" href="viewBooking.php">View Booking</a></li>
             </ul>
         <?php }
         ?>

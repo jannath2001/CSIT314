@@ -17,11 +17,18 @@ if (isset($_POST['addMovieButton'])) {
     $format = $_POST['format'];
     $rating = $_POST['rating'];
     $movie_name = $_POST['movie_name'];
+    $genre = $_POST['genre'];
+    $duration = $_POST['duration'];
+    $age_rating = $_POST['age_rating'];
+    $subtitle = $_POST['subtitle'];
+    $MovieSynopsis = $_POST['MovieSynopsis'];
     $image = $_POST['image'];
 
 
+
      // Call addMovie function of the addMovieController object to add the movie to the database
-     if ($addMovieController->addMovie($room_id, $availability, $price, $format, $rating, $movie_name, $image)) {
+     if ($addMovieController->addMovie($room_id, $availability, $price, $format, $rating, $movie_name, $genre, $duration, $age_rating, $subtitle,
+     $MovieSynopsis,$image)) {
         // Redirect to a success page
         header("Location: editMovie.php");
         exit();
@@ -144,9 +151,29 @@ if (isset($_POST['addMovieButton'])) {
             <label for="movie_name">Enter the Name of Movie:</label>
             <input type="text" name="movie_name" placeholder="Enter the Name of Movie">
             <br><br>
+            <label for="genre">Genre:</label>
+            <input type="text" name="genre" placeholder="Enter Genre">
+            <br><br>
+            <label for="duration">Duration:</label>
+            <input type="number" name="duration" placeholder="Enter duration of movie">
+            <br><br>
+            <label for="age_ratinge">Age rating:</label>
+            <input type="text" name="age_rating" placeholder="Enter age rating">
+            <br><br>
+            <label for="subtitle">Subtitle:</label>
+            <select name="subtitle">
+                <option name="subtitle" value="none">No subtitle</option>
+                <option name="subtitle" value="chinese">Chinese</option>
+                <option name="subtitle" value="English">English</option>
+            </select>
+            <br><br>
+            <label for="MovieSynopsis">Enter Synonpsis of Movie:</label>
+            <input type="text" name="MovieSynopsis" placeholder="Enter Synopsis">
+            <br><br>
             <label for="image">Enter the image link:</label>
             <input type="text" name="image" placeholder="Enter the image link">
             <br><br>
+
             <button type="submit" name="addMovieButton" value="addMovieButton">Add the Movie</button>
             <button type="submit" name="backToEditButton" value="backToEditButton">Back to Edit Movie</button>
         </form>

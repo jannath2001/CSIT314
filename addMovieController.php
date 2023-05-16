@@ -21,12 +21,15 @@ class addMovieController {
 
 
     // Method to add a movie to the database
-    public function addMovie($room_id, $availability, $price, $format, $rating, $movie_name, $image) {
+    public function addMovie($room_id, $availability, $price, $format, $rating, $movie_name, $genre, $duration, $age_rating, $subtitle,
+    $MovieSynopsis,$image) {
         // Prepare the insert statement
-        $stmt = $this->conn->prepare("INSERT INTO movies (room_id, availability, price, format, rating, movie_name, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO movies (room_id, availability, price, format, rating, movie_name , genre, duration, 
+        age_rating, subtitle, MovieSynopsis, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
         // Bind the parameters
-        $stmt->bind_param("ississs", $room_id, $availability, $price, $format, $rating, $movie_name, $image);
+        $stmt->bind_param("isisississss", $room_id, $availability, $price, $format, $rating, $movie_name, $genre, $duration, $age_rating, $subtitle,
+        $MovieSynopsis,$image);
 
         // Execute the statement
         if ($stmt->execute()) {

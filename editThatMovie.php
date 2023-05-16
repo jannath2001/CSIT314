@@ -91,6 +91,50 @@ $movieEditController = new movieUpdateController($conn);
                 </div>
 
                 <div class="mb-3">
+                    <label for="rating">Rating:</label>
+                    <input type="number" name="rating" value="<?=$result['rating'] ?>" placeholder="Enter the rating" Required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="genre">Genre:</label>
+                    <input type="text" name="genre" value="<?=$result['genre'] ?>" placeholder="Enter the genre" Required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="duration">Duration:</label>
+                    <input type="text" name="duration" value="<?=$result['duration'] ?>" placeholder="Enter the duration" Required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="age_rating">Age rating:</label>
+                    <input type="text" name="age_rating" value="<?=$result['age_rating'] ?>" placeholder="Enter the age rating" Required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="subtitle">Subtitle:</label>
+                    <select name="subtitle">
+        <        <?php
+                if ($result['subtitle'] == "chinese") {
+                    echo '<option name="subtitle" value="chinese" selected>Chinese</option>';
+                    echo '<option name="subtitle" value="english">English</option>';
+                } else if ($result['subtitle'] == "english") {
+                    echo '<option name="subtitle" value="chinese">Chinese</option>';
+                    echo '<option name="subtitle" value="english" selected>English</option>';
+                } else {
+                    echo '<option name="subtitle" value="chinese">Chinese</option>';
+                    echo '<option name="subtitle" value="english">English</option>';
+                }
+                ?>
+                </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="MovieSynopsis">Movie Synopsis:</label>
+                    <input type="text" name="MovieSynopsis" value="<?=$result['MovieSynopsis'] ?>" placeholder="Enter Movie Synopsis" Required>
+                </div>
+
+
+                <div class="mb-3">
                     <label for="image">Image:</label>
                     <input type="text" name="image" value="<?=$result['image'] ?>" placeholder="Enter the image" Required>
                 </div>

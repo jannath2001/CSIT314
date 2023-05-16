@@ -1,6 +1,6 @@
 <?php
 include("DBTicketBooking.php");
-include("navBar.php");
+
 
 
 class MenuController
@@ -17,7 +17,7 @@ class MenuController
         //Retrieve movie data from database
         $food = array();
         $sql = "SELECT * FROM food_beverage";
-    $result = mysqli_query($this->conn, $sql);
+        $result = mysqli_query($this->conn, $sql);
 
     //Display movie data if available
     if ($result) {

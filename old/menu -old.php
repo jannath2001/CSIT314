@@ -7,27 +7,7 @@ include("menuController.php");
 
 $menuController = new MenuController($conn);
 $menu = $menuController->getMenu();
-$id = '';
-
-if (isset($_GET["menu_id"]))
-    $id = $_GET["menu_id"];
-/*
- * Check for POST that has variables
- * Variables --> TicketNo, Location, Timing, Date, Seats
- * Pass all data into Session / Cookie
- */
-if (isset($_POST["roomID"],$_POST["date"],$_POST["time"],$_POST["ticketType"],$_POST["seats"])) {
-    session_start();
-    $roomID = $_POST["roomID"];
-    $timing = $_POST["time"];
-    $date = $_POST["date"];
-    $seats = $_POST["seats"];
-    $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
-    $seats = explode(",",$seats);
-    $_SESSION["roomID"] = $roomID;
-    $_SESSION["dateTime"] = $roomID;
-    $_SESSION["seats"] = $roomID;
-}
+$menu_id = $_GET['menu_id'];
 ?>
 
 <!DOCTYPE html>
@@ -149,7 +129,8 @@ if (isset($_POST["roomID"],$_POST["date"],$_POST["time"],$_POST["ticketType"],$_
      if(isset($_POST['menu_item[]'])) {
       // Checkbox is checked
       $checkbox_value = $_POST['checkbox_name'];
-
+  } else {
+      // Checkbox is not checked
   }
 
      ?>

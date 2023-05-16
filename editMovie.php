@@ -119,6 +119,11 @@ $movies = $movieController->getAllMovies($conn);
                     <th>Price</th>
                     <th>Format</th>
                     <th>Rating</th>
+                    <th>Genre</th>
+                    <th>Duration</th>
+                    <th>Age rating</th>
+                    <th>Subtitle</th>
+                    <th>Movie Synopsis</th>
                     <th>Image</th>
                     <th>Actions</th>
                 </tr>
@@ -143,6 +148,21 @@ $movies = $movieController->getAllMovies($conn);
                         </td>
                         <td>
                             <?php echo $movie['rating']; ?>
+                        </td>
+                        <td>
+                            <?php echo $movie['genre']; ?>
+                        </td>
+                        <td>
+                            <?php echo $movie['duration']; ?>
+                        </td>
+                        <td>
+                            <?php echo $movie['age_rating']; ?>
+                        </td>
+                        <td>
+                            <?php echo $movie['subtitle']; ?>
+                        </td>
+                        <td>
+                            <?php echo $movie['MovieSynopsis']; ?>
                         </td>
                         <td>
                             <?php echo $movie['image']; ?>

@@ -6,7 +6,6 @@ include("moviesController.php");
 $movieController = new MovieController($conn);
 $movieName = '';
 
-
 // Retrieve the movie_id from the URL
 if (isset($_POST['bookNow'])) {
   if (isset($_POST['movie_id'])) {
@@ -33,6 +32,10 @@ if (isset($_POST['bookNow'])) {
   }
 }
 ?>
+
+
+
+
 
 <html>
 <head>
@@ -73,36 +76,28 @@ if (isset($_POST['bookNow'])) {
 </head>
 <body style="background-color: #1a1a1a;">
   <div class="container-fluid">
+  
     <div class="row">
       <div class="col-6">
         <h4 class="text-white"><?php echo $movie_name; ?></h4>
         <span class="text-muted">Choose the cinema schedule that you wish to watch</span>
         <br/>
-        <!-- <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown button
-          </button>
-          <ul class="dropdown-menu bg-secondary" aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item text-white" href="#">Action</a></li>
-            <li><a class="dropdown-item text-white" href="#">Another action</a></li>
-            <li><a class="dropdown-item text-white" href="#">Something else here</a></li>
-          </ul>
-        </div> -->
+      
         <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>15 Dec 2023</span><br/>Tue</button>
+            <button type="button" class="btn btn-secondary"><span>15 Dec 2023</span><br/>Tue</button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>16 Dec 2023</span><br/>Tue</button>
+            <button type="button" class="btn btn-secondary"><span>16 Dec 2023</span><br/>Tue</button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Third group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>17 Dec 2023</span><br/>Tue</button>
+            <button type="button" class="btn btn-secondary"><span>17 Dec 2023</span><br/>Tue</button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>18 Dec 2023</span><br/>Tue</button>
+            <button type="button" class="btn btn-secondary"><span>18 Dec 2023</span><br/>Tue</button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>19 Dec 2023</span><br/>Tue</button>
+            <button type="button" class="btn btn-secondary"><span>19 Dec 2023</span><br/>Tue</button>
           </div>
         </div>
         <br/>
@@ -140,18 +135,10 @@ if (isset($_POST['bookNow'])) {
         <div id="myModal">
           
         </div>
-
     </div>
-      <form action="menu.php" method="POST" hidden="hidden">
-        <input type="text" name="roomID" value="" id="roomIDInput"/>
-        <input type="text" name="ticketType" value="" id="ticketTypeInput"/>
-        <input type="text" name="date" value="" id="dateInput"/>
-        <input type="text" name="time" value="" id="timeInput">
-        <input type="text" name="seats" value="" id="seatsInput"/>
-        <input type="submit" value="Submit" id="submitInput"/>
-      </form>
   </div>
   <script>
+
     function shareMe() {
       alert("Copied to clipboard!");
     }
@@ -160,7 +147,7 @@ if (isset($_POST['bookNow'])) {
       if (document.getElementById("dropdown").value == 'jewel') {
         document.getElementById("changeMe").innerHTML = `
           <h4 class="text-white">Jewel</h4>
-          <h6 class="text-white" id="1">REGULAR 2D</h6>
+          <h6 class="text-white">REGULAR 2D</h6>
           <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mr-2" role="group" aria-label="First group">
               <button type="button" class="btn btn-secondary" id="REGULAR" onclick="testMe(this)">11:00</button>
@@ -173,14 +160,14 @@ if (isset($_POST['bookNow'])) {
             </div>
           </div>
           <br/>
-          <h6 class="text-white" id="2">GOLD CLASS 2D</h6>
+          <h6 class="text-white">GOLD CLASS 2D</h6>
           <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mr-2" role="group" aria-label="First group">
               <button type="button" class="btn btn-secondary" id="GOLD" onclick="testMe(this)">11:00</button>
             </div>
           </div>
           <br/>
-          <h6 class="text-white" id="3">VIP CLASS 3D</h6>
+          <h6 class="text-white">VIP CLASS 3D</h6>
           <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mr-2" role="group" aria-label="First group">
               <button type="button" class="btn btn-secondary" id="VIP" onclick="testMe(this)">11:00</button>
@@ -191,7 +178,7 @@ if (isset($_POST['bookNow'])) {
       else if (document.getElementById("dropdown").value == 'cathay') {
         document.getElementById("changeMe").innerHTML = `
           <h4 class="text-white">The Cathay</h4>
-          <h6 class="text-white" id="4">REGULAR 2D</h6>
+          <h6 class="text-white">REGULAR 2D</h6>
             <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
                 <button type="button" class="btn btn-secondary" id="REGULAR" onclick="testMe(this)">11:00</button>
@@ -202,7 +189,7 @@ if (isset($_POST['bookNow'])) {
       else if (document.getElementById("dropdown").value == 'bugis') {
         document.getElementById("changeMe").innerHTML = `
           <h4 class="text-white">Bugis+</h4>
-          <h6 class="text-white" id="5">REGULAR 2D</h6>
+          <h6 class="text-white">REGULAR 2D</h6>
             <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
                 <button type="button" class="btn btn-secondary" id="REGULAR" onclick="testMe(this)">11:00</button>
@@ -212,27 +199,26 @@ if (isset($_POST['bookNow'])) {
       }
     }
 
-
-  function testMe(ele) {
-    console.log(ele.id);
-    console.log(ele.innerHTML);
-    document.getElementById("rightMe").innerHTML = `
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">${ele.id}</h5>
-        <label for="dropdown" style="color: black">Select a ticket type:</label>
-        <select id="dropdown2" onclick="ticketMe()">
-          <option value="none" selected disabled hidden>Click Here</option>
-          <option value="adult">Adult</option>
-          <option value="student">Student</option>
-        </select>
-        <label for="inputTicket">Ticket Number:</label><input type='number' id='ticketNum' min='1' />
-        <h6 class="card-subtitle mt-2 mb-2 text-muted">Time: ${ele.innerHTML}</h6>
-        <button class="btn btn-primary" onclick="buyNow()">Buy Now</button>
+    function testMe(ele) {
+      console.log(ele.id);
+      console.log(ele.innerHTML);
+      document.getElementById("rightMe").innerHTML = `
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">${ele.id}</h5>
+          <label for="dropdown" style="color: black">Select a ticket type:</label>
+          <select id="dropdown2" onclick="ticketMe()">
+            <option value="none" selected disabled hidden>Click Here</option>
+            <option value="adult">Adult</option>
+            <option value="student">Student</option>
+          </select>
+          <label for="inputTicket">Ticket Number:</label><input type='number' id='ticketNum' min='1' />
+          <h6 class="card-subtitle mt-2 mb-2 text-muted">Time: ${ele.innerHTML}</h6>
+          <button class="btn btn-primary" onclick="buyNow()">Buy Now</button>
+        </div>
       </div>
-    </div>
-    `
-  }
+      `
+    }
 
   var counter = 0;
   function ticketMe() {  
@@ -250,7 +236,6 @@ if (isset($_POST['bookNow'])) {
     }
     
   }
-
 
   function checkMe(ticket) {
     console.log(ticket)
@@ -285,7 +270,7 @@ if (isset($_POST['bookNow'])) {
                     <th>1</th>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="A1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         A1
                       </label>
@@ -293,7 +278,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="B1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         B1
                       </label>
@@ -301,7 +286,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="C1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         C1
                       </label>
@@ -309,7 +294,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="D1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         D1
                       </label>
@@ -317,7 +302,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="E1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         E1
                       </label>
@@ -325,7 +310,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="F1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         F1
                       </label>
@@ -333,7 +318,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="G1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         G1
                       </label>
@@ -341,7 +326,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="H1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         H1
                       </label>
@@ -352,7 +337,7 @@ if (isset($_POST['bookNow'])) {
                     <th>2</th>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="A2" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         A2
                       </label>
@@ -360,7 +345,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="B2" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         B2 
                       </label>
@@ -368,7 +353,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="C2" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         C2
                       </label>
@@ -376,7 +361,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="D2" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                        D2
                       </label>
@@ -384,7 +369,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="E2" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                        E2
                       </label>
@@ -392,7 +377,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="F2" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         F2
                       </label>
@@ -400,7 +385,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="G2" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                        G2
                       </label>
@@ -408,7 +393,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="H2" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         H2
                       </label>
@@ -419,7 +404,7 @@ if (isset($_POST['bookNow'])) {
                     <th>3</th>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="A3" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         A3
                       </label>
@@ -427,7 +412,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="B3" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         B3
                       </label>
@@ -435,7 +420,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="C3" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         C3
                       </label>
@@ -443,7 +428,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="D3" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         D3
                       </label>
@@ -451,7 +436,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="E3" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         E3
                       </label>
@@ -459,7 +444,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="F3" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         F3
                       </label>
@@ -467,7 +452,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="G3" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         G3
                       </label>
@@ -475,14 +460,14 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="H3" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         H3
                       </label>
                       </div>
                     </td>
                   </tr>
-                  <button id="confirm" class='confirm-btn' onclick="insertData()">Confirm Seating</button>
+                  <button class='confirm-btn'>Confirm Seating</button>
                 </div>
                 
               </div>
@@ -490,58 +475,7 @@ if (isset($_POST['bookNow'])) {
           </div>
           
       `
-  }
 
-    /**
-     *
-     * @Variables
-     * ticketNo - Number of Tickets
-     * Location - Room ID
-     * Timing - Retrieved from Fixed Timing
-     * Date - Retrieved from the Buttons
-     * Seats - Retrieved from Checkbox
-     * @Purpose
-     * Send the Data into PHP through POST
-     *
-     * @Assumption
-     * This function does not check for validation
-     * or anything that exist outside of range
-     */
-
-  function insertData() {
-    let ticketNo = document.getElementById("ticketNum").value;
-    let location = document.getElementsByTagName("h6")[0].id;
-    let ticketType = document.getElementById("dropdown2").value;
-    /* Lazy way to find timing
-       Find whether VIP exist
-        IF VIP DOESN'T EXIST
-          FIND whether Regular Exist
-            Return Gold if Regular doesn't exist
-          Return Regular
-        Return VIP
-     */
-    let timing = (document.getElementById("VIP") != null ?
-        document.getElementById("VIP").innerText :
-        document.getElementById("REGULAR") != null ?
-            document.getElementById("REGULAR").innerText :
-            document.getElementById("GOLD").innerText);
-    let date = document.getElementById("Dates").innerText.trim();
-    let seats = [];
-    /* Find all Input that has been Checked
-       Push the label when value has been checked
-       Doesn't check for validation
-        IF user were to check input more than max tickets
-        Seats will still be inputted into it
-     */
-    for (const seat of document.querySelectorAll('input[type="checkbox"]:checked').values()) {
-      seats.push(seat.value);
-    }
-    document.getElementById("roomIDInput").value = location;
-    document.getElementById("dateInput").value = date;
-    document.getElementById("timeInput").value = timing;
-    document.getElementById("ticketTypeInput").value = ticketType;
-    document.getElementById("seatsInput").value = seats.toString();
-    document.getElementById("submitInput").click();
   }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
