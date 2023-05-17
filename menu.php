@@ -16,18 +16,23 @@ if (isset($_GET["menu_id"]))
  * Variables --> TicketNo, Location, Timing, Date, Seats
  * Pass all data into Session / Cookie
  */
-if (isset($_POST["roomID"],$_POST["date"],$_POST["time"],$_POST["ticketType"],$_POST["seats"])) {
-    session_start();
-    $roomID = $_POST["roomID"];
-    $timing = $_POST["time"];
-    $date = $_POST["date"];
-    $seats = $_POST["seats"];
-    $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
-    $seats = explode(",",$seats);
-    $_SESSION["roomID"] = $roomID;
-    $_SESSION["dateTime"] = $roomID;
-    $_SESSION["seats"] = $roomID;
+if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"])) {
+  session_start();
+  $movie_id = $_POST["movie_id"];
+  //$roomID = $_POST["roomID"];
+  $timing = $_POST["time"];
+  $date = $_POST["date"];
+  $seats = $_POST["seats"];
+  $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
+  $seats = explode(",", $seats);
+  $_SESSION["movie_id"] = $movie_id;
+  $_SESSION["dateTime"] = $dateTime; // Corrected variable assignment
+  $_SESSION["seats"] = $seats; // Corrected variable assignment
+  var_dump( $movie_id);
+  var_dump( $dateTime);
+  var_dump( $seats);
 }
+
 ?>
 
 <!DOCTYPE html>

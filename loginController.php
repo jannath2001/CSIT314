@@ -92,8 +92,11 @@ class LoginController {
                     }
                     while ($row = mysqli_fetch_assoc($result)) {
                         $user_type = $row['user_type'];
+                        $user_id = $row['user_id'];
                     }
-                    
+
+                    // Store user_id in the session
+                    $_SESSION['user_id'] = $user_id;
                     // Send the values over to other pages using session
                     $_SESSION['email'] = $this->email;
                     $_SESSION['password'] = $this->password;

@@ -30,13 +30,37 @@ class CheckOutController
         return $items;
 
 }
+function get_movieItems($movieId) {
+    
+    $sql2 = "SELECT * FROM movies WHERE movie_id = $movieId";
+    $result2 = mysqli_query($this->conn, $sql2);
+    $movie = mysqli_fetch_assoc($result2);
+
+    return $movie;
+  }
+
+function processCheckout($seats, $selectedMovieId, $roomID, $totalFood, $dateTime, $ticketID, $userID)
+{
+    // Do SQL Insertion for tickets
+    foreach ($seats as &$seat) {
+        $insertTicket = "INSERT INTO movie_ticket(seat_num,movie_id,room_id,foodTotal,dateTime)
+                         VALUES($seat,$selectedMovieId,$roomID,$totalFood,$dateTime)";
+        // Perform insertion
+    }
+
+    // Do SQL Insertion for booking
+    $insertBooking = "INSERT INTO booking(movie_id,ticket_id,user_id)
+                      VALUES($selectedMovieId, $ticketID,$userID)";
+    // Perform insertion
+
+    // Update Room to reflect the correct number of seats left
+    $length = count($seats);
+    $updateRoom = "UPDATE Room
+                   SET num_of_seat = num_of_seat - $length
+                   WHERE room_id = $roomID";
+    // Perform update
+}
 }
 
-// if (mysqli_num_rows($result) > 0) {
-//     while ($row = mysqli_fetch_assoc($result)) {
-//         echo "<p>" . $row['item_name'] . " - $" . $row['price'] . $row['image']. "</p>";
-//     }
-// } else {
-//     echo "<p>No items selected</p>";
-// }
-// }
+
+

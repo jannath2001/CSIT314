@@ -27,8 +27,8 @@ if (isset($_POST['addMovieButton'])) {
 
 
      // Call addMovie function of the addMovieController object to add the movie to the database
-     if ($addMovieController->addMovie($room_id, $availability, $price, $format, $rating, $movie_name, $genre, $duration, $age_rating, $subtitle,
-     $MovieSynopsis,$image)) {
+     if ($addMovieController->addMovie($room_id, $availability, $price, $format, $rating, $movie_name, 
+     $genre, $duration, $age_rating, $subtitle, $MovieSynopsis,$image)) {
         // Redirect to a success page
         header("Location: editMovie.php");
         exit();
@@ -36,7 +36,8 @@ if (isset($_POST['addMovieButton'])) {
         // Error occurred while adding movie
         echo "Error occurred while adding movie: " . mysqli_error($addMovieController->conn);
     }
-}
+      }
+
 ?>
 
 <!DOCTYPE html>

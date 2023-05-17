@@ -1,10 +1,66 @@
 <?php
+// Required to start everytime passing of data with session is required
+session_start();
 include("DBTicketBooking.php");
 include("checkoutController.php");
 
 $checkoutController = new CheckOutController($conn);
 $menu_item = $_POST['menu_item'];
-$checkOut= $checkoutController-> get_menuItems($menu_item);
+$checkOutMenu = $checkoutController->get_menuItems($menu_item);
+
+$movie_items = $_SESSION["movie_id"];
+$checkOutMovies = $checkoutController-> get_movieItems($movie_items);
+$movie_name = $checkOutMovies['movie_name'];
+$image1 = $checkOutMovies['image'];
+$price1 = $checkOutMovies['price'];
+
+
+ if (isset($_POST['menu_item[]'])) {
+  $timing = $_POST["time"];
+  $date = $_POST["date"];
+  $seats = $_POST["seats"];
+  $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
+  $seats = explode(",", $seats);
+  $room_id = $_SESSION["room_id"];
+  $_SESSION["dateTime"] = $dateTime; // Corrected variable assignment
+  $_SESSION["seats"] = $seats;
+ }
+    /* **Required to Pass data through Confirm Checkout
+     * **Required to pass total cost of food to next page
+     * Either pass data through session
+     * =============================================
+     *  Those that have been been passed through session
+     *  is not required again
+     *    i.e.: roomID is saved inside session and not
+     *          required to be stored again
+     * ============================================
+     * Or Pass data through form
+     */
+
+     
+
+     /* For each Seats
+     * Do a SQL Insertion to Tickets first
+     * ------------------------------------------------*/
+     /*Foreach ($seats as &$seat) {
+     $insertTicket = "INSERT INTO movie_ticket(seat_num,movie_id,room_id,foodTotal,dateTime)
+     VALUES($seat,$selectedMovieId,$roomID,$totalFood,$dateTime)";
+      /* ------------------------------------------------*/
+     /*  When inserted tickets, ensure that booking is also inserted*/
+     /*  ------------------------------------------------
+     $insertBooking = "INSERT INTO booking(movie_id,ticket_id,user_id)
+     VALUES($selectedMovieId, $ticketID,$userID)";
+      }
+     /* ------------------------------------------------*/
+    /* Update Room to reflect correctly the number of seat left
+     * Length is the number of seats
+     * ------------------------------------------------
+     $length = count($seats);
+     $updateRoom = "UPDATE Room
+                    SET num_of_seat = num_of_seat - $length
+                    WHERE room_id = $roomID";
+     
+}*/
 ?>
 
 
@@ -171,14 +227,21 @@ span.price {
     <h4>Your Order Summary <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>2 items</b></span></h4> 
 
     <form style = "padding: 5px;"id='myform' method='POST' class='quantity' action='#'>
+    <div>
+      <p><img src="<?php echo $image1 ?>" style="width:131px; height:80px"/>
+      <a><?php echo $movie_name?></a>
+      <span class="price" id=price">$<?php echo $price1 ?></span></p>
+    
+    </div>
     <?php
-    foreach($checkOut as $index => $check){
+    foreach($checkOutMenu as $index => $check){
         $item_names = $check["item_name"];
         $price =  $check["price"];
         $image =  $check["image"];
     
     ?>
     <!-- first -->
+  
     <div>
      <p><img src="<?php echo $image ?>" style="width:131px; height:80px"/>
         <a><?php echo $item_names ?></a>

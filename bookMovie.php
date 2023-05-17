@@ -10,8 +10,8 @@ $movieName = '';
 // Retrieve the movie_id from the URL
 if (isset($_POST['bookNow'])) {
   if (isset($_POST['movie_id'])) {
-    $selectedMovieId = $_POST['movie_id'];
-    $movie = $movieController->getMovieDetails($selectedMovieId);
+    $movie_id = $_POST['movie_id'];
+    $movie = $movieController->getMovieDetails($movie_id);
 
     if ($movie) {
       // Display the movie details or perform further processing
@@ -23,8 +23,9 @@ if (isset($_POST['bookNow'])) {
     $subtitle = $movie['subtitle'];
     $MovieSynopsis= $movie['MovieSynopsis'];
     $image = $movie['image'];
-
-      
+    session_start();
+    $_SESSION["room_id"] = $movie["room_id"];
+  
     } else {
       echo "Movie not found.";
     }
@@ -143,11 +144,13 @@ if (isset($_POST['bookNow'])) {
 
     </div>
       <form action="menu.php" method="POST" hidden="hidden">
-        <input type="text" name="roomID" value="" id="roomIDInput"/>
         <input type="text" name="ticketType" value="" id="ticketTypeInput"/>
         <input type="text" name="date" value="" id="dateInput"/>
         <input type="text" name="time" value="" id="timeInput">
         <input type="text" name="seats" value="" id="seatsInput"/>
+        <input type="hidden" name="movie_id" value="<?php echo $movie_id; ?>">
+        <input type="hidden" name="room_id" value="<?php echo $room_id; ?>">
+
         <input type="submit" value="Submit" id="submitInput"/>
       </form>
   </div>
@@ -510,7 +513,7 @@ if (isset($_POST['bookNow'])) {
 
   function insertData() {
     let ticketNo = document.getElementById("ticketNum").value;
-    let location = document.getElementsByTagName("h6")[0].id;
+    //let location = document.getElementsByTagName("h6")[0].id;
     let ticketType = document.getElementById("dropdown2").value;
     /* Lazy way to find timing
        Find whether VIP exist
@@ -535,14 +538,13 @@ if (isset($_POST['bookNow'])) {
      */
     for (const seat of document.querySelectorAll('input[type="checkbox"]:checked').values()) {
       seats.push(seat.value);
-    }
-    document.getElementById("roomIDInput").value = location;
     document.getElementById("dateInput").value = date;
     document.getElementById("timeInput").value = timing;
     document.getElementById("ticketTypeInput").value = ticketType;
     document.getElementById("seatsInput").value = seats.toString();
     document.getElementById("submitInput").click();
   }
+}
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

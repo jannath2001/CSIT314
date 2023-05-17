@@ -1,6 +1,7 @@
 <?php
 include("DBTicketBooking.php");
 include("navBar.php");
+
 ?>
 
 
@@ -33,6 +34,7 @@ include("navBar.php");
                     <img src="IMDB.png" alt="Image 3"><br>
                     </p>
                 </div>
+                
                 <div class="box2">
                     <h1>Movies screening now</h1>
                     <div class="slider-container">
@@ -99,12 +101,7 @@ include("navBar.php");
                   </div>
                 </div>
               </div>
-			  
-			  
-			  
-			  
-			  
-			  
+              
               <div class="box4">
                 <div class="column">
                   <br/>

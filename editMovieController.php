@@ -29,6 +29,8 @@ class MovieController
         // return the array of movies
         return $movies;
     }
+
 }
 
 ?>
+
