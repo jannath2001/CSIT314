@@ -4,23 +4,25 @@ session_start();
 include("DBTicketBooking.php");
 include("checkoutController.php");
 
+
 $checkoutController = new CheckOutController($conn);
 $menu_item = $_POST['menu_item'];
 $checkOutMenu = $checkoutController->get_menuItems($menu_item);
+$checkoutController->updateLoyaltyPoints();
 
 $movie_items = $_SESSION["movie_id"];
 $checkOutMovies = $checkoutController-> get_movieItems($movie_items);
 $movie_name = $checkOutMovies['movie_name'];
 $image1 = $checkOutMovies['image'];
 $price1 = $checkOutMovies['price'];
-
+$seats = $_SESSION['seats'];
+$length = count($seats);
+$moviePrice = $price1 * $length;
 
  if (isset($_POST['menu_item[]'])) {
   $timing = $_POST["time"];
   $date = $_POST["date"];
-  $seats = $_POST["seats"];
   $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
-  $seats = explode(",", $seats);
   $room_id = $_SESSION["room_id"];
   $_SESSION["dateTime"] = $dateTime; // Corrected variable assignment
   $_SESSION["seats"] = $seats;
@@ -218,19 +220,19 @@ span.price {
           
         </div>
         
-        <input type="submit" value="Continue to checkout" class="btn">
+        <!-- <input type="submit" value="Continue to checkout" class="btn"> -->
       </form>
     </div>
   </div>
   <div class="col-25">
     <div class="container">
-    <h4>Your Order Summary <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>2 items</b></span></h4> 
+    <h4>Checkout <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></h4> 
 
-    <form style = "padding: 5px;"id='myform' method='POST' class='quantity' action='#'>
+    <form style = "padding: 5px;"id='myform' method='POST' class='quantity' action="orderSummary.php">
     <div>
       <p><img src="<?php echo $image1 ?>" style="width:131px; height:80px"/>
       <a><?php echo $movie_name?></a>
-      <span class="price" id=price">$<?php echo $price1 ?></span></p>
+      <span class="price" id="moviePrice">$<?php echo $moviePrice ?></span></p>
     
     </div>
     <?php
@@ -247,17 +249,21 @@ span.price {
         <a><?php echo $item_names ?></a>
         <span class="price" id="price_<?php echo $index ?>">$<?php echo $price ?></span></p>
         <input style="text-align: center; width: 40px; height: 25px; border: none;" name="counter" type="number" 
-        id="counter_<?php echo $index ?>" min="0" max="50" step="1" class="qty" onchange="calculateTotal(<?php echo $index ?>)">
+        id="counter_<?php echo $index ?>" min="1" max="50" step="1" class="qty" onchange="calculateTotal(<?php echo $index ?>)">
         <p style="display: none;">Total: <span class="price" id="total_<?php echo $index ?>" style="color:black"><b></b></span></p>
     </div>
         <?php
-     }
-     mysqli_close($conn);
+    }
+        mysqli_close($conn);
      ?>
-     </form>   
+    
       <p>Total payable: <span class="price" id="total3" style="color:black"><b></b></span></p>
+      <input type="hidden" id="totalPriceInput" name="totalPrice" value=""/>
+      <input type="submit" value="Confirm booking" class="btn">
+      
     </div>
   </div>
+  </form>  
 </div>
 
 </body>
@@ -267,7 +273,7 @@ function calculateTotal(index) {
   // Get the price and quantity elements
   var price = parseFloat(document.getElementById("price_" + index).innerText.replace("$", ""));
   var quantity = document.getElementById("counter_" + index).value;
-  
+  var moviePrice = parseFloat(document.getElementById("moviePrice").innerHTML.substring(1));
   // Calculate the total price and update the span element
   var total = price * quantity;
   document.getElementById("total_" + index).innerHTML = "$" + total;
@@ -284,7 +290,10 @@ function calculateTotal(index) {
       totalPayable += (price * qty);
     }
   }
+  totalPayable += moviePrice;
   document.getElementById("total3").innerHTML = "$" + totalPayable;
+  document.getElementById("totalPriceInput").value = totalPayable.substring(1);
 }
+
 </script>
 </html>

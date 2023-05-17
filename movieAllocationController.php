@@ -78,7 +78,7 @@ class movieAllocationController
     
             $output .= '<div class="item">';
             $output .= '<img src="' . $data['image'] . '" alt="' . $movie . '">';
-            $output .= '<div class="dropdown1">';
+            $output .= '<div class="dropdown1" style="margin-top:20px;">';
             $output .= '<select name="cinema[' . $data['movie_name'] . ']">';
     
             for ($i = 1; $i <= 6; $i++) {

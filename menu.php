@@ -18,19 +18,27 @@ if (isset($_GET["menu_id"]))
  */
 if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"])) {
   session_start();
+  $location = $_POST['location'];
+  $room_id = $_SESSION['room_id'];
   $movie_id = $_POST["movie_id"];
-  //$roomID = $_POST["roomID"];
   $timing = $_POST["time"];
-  $date = $_POST["date"];
   $seats = $_POST["seats"];
+  $ticketType= $_POST['ticketType'];
+
   $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
   $seats = explode(",", $seats);
   $_SESSION["movie_id"] = $movie_id;
   $_SESSION["dateTime"] = $dateTime; // Corrected variable assignment
-  $_SESSION["seats"] = $seats; // Corrected variable assignment
-  var_dump( $movie_id);
-  var_dump( $dateTime);
-  var_dump( $seats);
+  $_SESSION['location'] = $location;
+  $_SESSION['ticketType'] = $ticketType;
+  $_SESSION['seats'] = $seats;
+
+
+
+  var_dump( $ticketType);
+  // var_dump( $dateTime);
+  // var_dump( $seats);
+  // var_dump( $location);
 }
 
 ?>
@@ -124,7 +132,7 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
     <div class="container">
 
    
-    <form method="post" action="checkout.php">
+    <form method="post" action="checkout.php" style = "display:flex; flex-direction:row;">
     <?php
     
     foreach($menu as $menus){
@@ -148,7 +156,10 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
     mysqli_close($conn);
      ?>
     
+    <div style = "display:flex; flex-direction:column; margin-top:33%;">
     <button type="submit">Next</button>
+    </div>
+
     </form>
     <?php
      if(isset($_POST['menu_item[]'])) {

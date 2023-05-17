@@ -25,6 +25,7 @@ if (isset($_POST['bookNow'])) {
     $image = $movie['image'];
     session_start();
     $_SESSION["room_id"] = $movie["room_id"];
+   
   
     } else {
       echo "Movie not found.";
@@ -91,19 +92,19 @@ if (isset($_POST['bookNow'])) {
         </div> -->
         <div class="btn-toolbar mt-3" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>15 Dec 2023</span><br/>Tue</button>
+            <button type="button" id="Dates" class="btn btn-secondary" value="" onclick="selectButton(this)"><span>15 Dec 2023</span><br/>Tue</button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Second group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>16 Dec 2023</span><br/>Tue</button>
+            <button type="button" id="Dates" class="btn btn-secondary" value="" onclick="selectButton(this)"><span>16 Dec 2023</span><br/>Tue</button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="Third group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>17 Dec 2023</span><br/>Tue</button>
+            <button type="button" id="Dates" class="btn btn-secondary" value="" onclick="selectButton(this)"><span>17 Dec 2023</span><br/>Tue</button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>18 Dec 2023</span><br/>Tue</button>
+            <button type="button" id="Dates" class="btn btn-secondary" value="" onclick="selectButton(this)"><span>18 Dec 2023</span><br/>Tue</button>
           </div>
           <div class="btn-group mr-2" role="group" aria-label="First group">
-            <button type="button" id="Dates" class="btn btn-secondary"><span>19 Dec 2023</span><br/>Tue</button>
+            <button type="button" id="Dates" class="btn btn-secondary" value="" onclick="selectButton(this)"><span>19 Dec 2023</span><br/>Tue</button>
           </div>
         </div>
         <br/>
@@ -146,10 +147,11 @@ if (isset($_POST['bookNow'])) {
       <form action="menu.php" method="POST" hidden="hidden">
         <input type="text" name="ticketType" value="" id="ticketTypeInput"/>
         <input type="text" name="date" value="" id="dateInput"/>
-        <input type="text" name="time" value="" id="timeInput">
+        <input type="text" name="time" value="" id="timeInput"/>
         <input type="text" name="seats" value="" id="seatsInput"/>
+        <input type="text" name="location" value="" id="locationInput"/>
         <input type="hidden" name="movie_id" value="<?php echo $movie_id; ?>">
-        <input type="hidden" name="room_id" value="<?php echo $room_id; ?>">
+        <input type="hidden" name="room_id" value="<?php echo $_SESSION["room_id"]; ?>">
 
         <input type="submit" value="Submit" id="submitInput"/>
       </form>
@@ -272,7 +274,7 @@ if (isset($_POST['bookNow'])) {
       <div class="modal-content">
               <span class="close">&times;</span>
               <div class="seating-plan">
-                <table>
+                <table style="margin-bottom:60px;">
                   <tr>
                     <th></th>
                     <th>A</th>
@@ -485,7 +487,9 @@ if (isset($_POST['bookNow'])) {
                       </div>
                     </td>
                   </tr>
+                  <div style="margin-top:50px;">
                   <button id="confirm" class='confirm-btn' onclick="insertData()">Confirm Seating</button>
+                  </div>
                 </div>
                 
               </div>
@@ -495,6 +499,11 @@ if (isset($_POST['bookNow'])) {
       `
   }
 
+  function selectButton(e) {
+      for (let date of document.querySelectorAll("#Dates").values()) {
+        date.value = date === e ? date.innerText : ""
+      }
+    }
     /**
      *
      * @Variables
@@ -528,7 +537,7 @@ if (isset($_POST['bookNow'])) {
         document.getElementById("REGULAR") != null ?
             document.getElementById("REGULAR").innerText :
             document.getElementById("GOLD").innerText);
-    let date = document.getElementById("Dates").innerText.trim();
+    let date = [...document.querySelectorAll("#Dates").values()].find(i => i.value !== "").value;
     let seats = [];
     /* Find all Input that has been Checked
        Push the label when value has been checked
@@ -538,6 +547,7 @@ if (isset($_POST['bookNow'])) {
      */
     for (const seat of document.querySelectorAll('input[type="checkbox"]:checked').values()) {
       seats.push(seat.value);
+    document.getElementById("locationInput").value = document.getElementById("dropdown").value;
     document.getElementById("dateInput").value = date;
     document.getElementById("timeInput").value = timing;
     document.getElementById("ticketTypeInput").value = ticketType;
