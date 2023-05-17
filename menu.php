@@ -24,6 +24,7 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
   $timing = $_POST["time"];
   $seats = $_POST["seats"];
   $ticketType= $_POST['ticketType'];
+  $date = $_POST['date'];
 
   $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
   $seats = explode(",", $seats);
@@ -32,8 +33,6 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
   $_SESSION['location'] = $location;
   $_SESSION['ticketType'] = $ticketType;
   $_SESSION['seats'] = $seats;
-
-
 
   var_dump( $ticketType);
   // var_dump( $dateTime);

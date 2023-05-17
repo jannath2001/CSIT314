@@ -18,52 +18,10 @@ $price1 = $checkOutMovies['price'];
 $seats = $_SESSION['seats'];
 $length = count($seats);
 $moviePrice = $price1 * $length;
+$_SESSION['menu_item'] = $menu_item;
 
- if (isset($_POST['menu_item[]'])) {
-  $timing = $_POST["time"];
-  $date = $_POST["date"];
-  $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
-  $room_id = $_SESSION["room_id"];
-  $_SESSION["dateTime"] = $dateTime; // Corrected variable assignment
-  $_SESSION["seats"] = $seats;
- }
-    /* **Required to Pass data through Confirm Checkout
-     * **Required to pass total cost of food to next page
-     * Either pass data through session
-     * =============================================
-     *  Those that have been been passed through session
-     *  is not required again
-     *    i.e.: roomID is saved inside session and not
-     *          required to be stored again
-     * ============================================
-     * Or Pass data through form
-     */
-
-     
-
-     /* For each Seats
-     * Do a SQL Insertion to Tickets first
-     * ------------------------------------------------*/
-     /*Foreach ($seats as &$seat) {
-     $insertTicket = "INSERT INTO movie_ticket(seat_num,movie_id,room_id,foodTotal,dateTime)
-     VALUES($seat,$selectedMovieId,$roomID,$totalFood,$dateTime)";
-      /* ------------------------------------------------*/
-     /*  When inserted tickets, ensure that booking is also inserted*/
-     /*  ------------------------------------------------
-     $insertBooking = "INSERT INTO booking(movie_id,ticket_id,user_id)
-     VALUES($selectedMovieId, $ticketID,$userID)";
-      }
-     /* ------------------------------------------------*/
-    /* Update Room to reflect correctly the number of seat left
-     * Length is the number of seats
-     * ------------------------------------------------
-     $length = count($seats);
-     $updateRoom = "UPDATE Room
-                    SET num_of_seat = num_of_seat - $length
-                    WHERE room_id = $roomID";
-     
-}*/
 ?>
+
 
 
 <!DOCTYPE html>
@@ -259,6 +217,7 @@ span.price {
     
       <p>Total payable: <span class="price" id="total3" style="color:black"><b></b></span></p>
       <input type="hidden" id="totalPriceInput" name="totalPrice" value=""/>
+      <input type="hidden" id="quantityInput" name="quantity" value=""/>
       <input type="submit" value="Confirm booking" class="btn">
       
     </div>
@@ -292,7 +251,8 @@ function calculateTotal(index) {
   }
   totalPayable += moviePrice;
   document.getElementById("total3").innerHTML = "$" + totalPayable;
-  document.getElementById("totalPriceInput").value = totalPayable.substring(1);
+  document.getElementById("totalPriceInput").value = totalPayable;
+  document.getElementById("quantityInput").value = qty; 
 }
 
 </script>

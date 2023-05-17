@@ -5,8 +5,19 @@ include("DBTicketBooking.php");
 include("checkoutController.php");
 
 $checkoutController = new CheckOutController($conn);
-if (isset($_SESSION['movie_id'], $_POST['menu_item'], $_POST['totalPrice'])) {
-    $menu_item = $_POST['menu_item'];
+$checkOutMenu = '';
+$image1 = '';
+$num_of_ticket = 0;
+$ticketType = "";
+$seats = "";
+$room_id = "";
+$dateTime = "";
+$location = "";
+$qty = 0;
+
+
+if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
+    $menu_item = $_SESSION['menu_item'];
     $checkOutMenu = $checkoutController->get_menuItems($menu_item);
 
     $movie_items = $_SESSION["movie_id"];
@@ -24,9 +35,11 @@ if (isset($_SESSION['movie_id'], $_POST['menu_item'], $_POST['totalPrice'])) {
     $location = $_SESSION["location"];
     $num_of_ticket = count($seats);
     $movie_id = $_SESSION["movie_id"];
+    $qty = $_POST["quantity"];
+    
     
 
-    $checkoutController-> addTicket($seats, $movie_id, $room_id, $total, $dateTime, $ticketType, $location, $num_of_ticket);
+    // $checkoutController-> addTicket($seats, $movie_id, $room_id, $total, $dateTime, $ticketType, $location, $num_of_ticket);
 }
 
 
@@ -141,7 +154,10 @@ if (isset($_SESSION['movie_id'], $_POST['menu_item'], $_POST['totalPrice'])) {
       <div class="summary">
         <div class="summary-item">
         <img src="<?php echo $image1 ?>" alt= " Logo" width="100px">
-         <span style="color: #000;"><?php echo  $num_of_ticket ?> x <?php echo $ticketType ?></span>
+         <span style="color: #000;"><?php echo  $num_of_ticket ?> x <?php echo $ticketType ?> Tickets</span>
+         <p><span style="color: #000;"><p><?php echo  $dateTime ?></span></p>
+         <p><span style="color: #000;"><p><?php echo  $location ?></span></p>
+         
         </div>
         <?php
         foreach($checkOutMenu as $index => $check){
@@ -153,8 +169,8 @@ if (isset($_SESSION['movie_id'], $_POST['menu_item'], $_POST['totalPrice'])) {
  
     <div class="summary-item">
           <img src=<?php echo $image ?> alt="Popcorn Icon">
-          <span style="color: #000;"><?php echo $menu_item ?></span>
-        <span style="color: #000;">1 x popcorn</span>
+          <span style="color: #000;"> <?php echo $qty ?> x <?php echo $item_names  ?></span>
+        <!-- <span style="color: #000;">1 x popcorn</span> -->
     </div>
     <?php
      }
@@ -162,19 +178,19 @@ if (isset($_SESSION['movie_id'], $_POST['menu_item'], $_POST['totalPrice'])) {
      ?>
       </div>
       
-      <button class="button" id="emailButton">Send Summary to Email</button>
+      <button class="button" id="emailButton" onclick="sendData(this)">Send Summary to Email</button>
     </div>
   </div>
 
   <script>
-    const emailButton = document.getElementById('emailButton');
-    emailButton.addEventListener('click', () => {
-      const summaryText = document.body.innerText;
-      const emailBody = encodeURIComponent(summaryText);
-      const emailAddress = 'user@example.com'; // Change this to the recipient's email address
-      const mailtoLink = `mailto:${emailAddress}?subject=Order Summary&body=${emailBody}`;
-      window.location.href = mailtoLink;
-    });
+    function sendData(e) {
+        e.addEventListener('click', () => {
+        const summaryText = document.body.innerText;
+        const emailBody = encodeURIComponent(summaryText);
+        const emailAddress = 'user@example.com'; // Change this to the recipient's email address
+        const mailtoLink = `mailto:${emailAddress}?subject=Order Summary&body=${emailBody}`;
+        });
+    }
   </script>
 </body>
 </html>
