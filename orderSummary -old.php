@@ -16,48 +16,42 @@ $room_id = "";
 $dateTime = "";
 $location = "";
 $qty = 0;
-$_SESSION['reward_Amount']  = null;
 
 
 if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
-  $menu_item = $_SESSION['menu_item'];
-  $checkOutMenu = $checkoutController->get_menuItems($menu_item);
+    $menu_item = $_SESSION['menu_item'];
+    $checkOutMenu = $checkoutController->get_menuItems($menu_item);
 
-  $movie_items = $_SESSION["movie_id"];
-  $checkOutMovies = $checkoutController->get_movieItems($movie_items);
+    $movie_items = $_SESSION["movie_id"];
+    $checkOutMovies = $checkoutController-> get_movieItems($movie_items);
 
-  $movie_name = $checkOutMovies['movie_name'];
-  $image1 = $checkOutMovies['image'];
-  $price1 = $checkOutMovies['price'];
+    $movie_name = $checkOutMovies['movie_name'];
+    $image1 = $checkOutMovies['image'];
+    $price1 = $checkOutMovies['price'];
 
-  $seats = $_SESSION['seats'];
-  $room_id = $_SESSION['room_id'];
-  $total = $_POST['totalPrice'];
-  $date = $_SESSION["date"];
-  $timing = $_SESSION["time"];
-  $ticketType = $_SESSION["ticketType"];
-  $location = $_SESSION["location"];
-  $num_of_ticket = count($seats);
-  $movie_id = $_SESSION["movie_id"];
-  $user_id = $_SESSION['user_id'];
-  $qty = $_POST["quantity"];
+    $seats = $_SESSION['seats'];
+    $room_id = $_SESSION['room_id'];
+    $total = $_POST['totalPrice'];
+    $date = $_SESSION["date"];
+    $timing = $_SESSION["time"];
+    $ticketType = $_SESSION["ticketType"];
+    $location = $_SESSION["location"];
+    $num_of_ticket = count($seats);
+    $movie_id = $_SESSION["movie_id"];
+    $user_id = $_SESSION['user_id'];
+    $qty = $_POST["quantity"];
 
+    
+    
 
-
-
-  $ticket_id = $orderSummary->addTicket($user_id, $seats, $movie_id, $room_id, $total, $date, $timing, $ticketType, $location, $num_of_ticket);
-  if ($ticket_id !== false) {
-    $orderSummary->addBooking($user_id, $movie_id, $ticket_id, $room_id, $date, $timing, $location, $num_of_ticket, $seats);
-  } else {
-    echo ("Error Adding to Bookings");
-  }
+    $orderSummary-> addTicket($user_id,$seats, $movie_id, $room_id, $total, $date, $timing, $ticketType, $location, $num_of_ticket);
 }
 
 
 /* SQL Queries for Loyalty Points
- *
- *
- */
+*
+*
+*/
 // $userId = $_SESSION['user_id'];
 // if (isset($_COOKIE['totalPrice'])) {
 //     $loyaltyPoints = $_COOKIE['totalPrice'];
@@ -86,7 +80,6 @@ if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
 
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Order Summary</title>
   <style>
@@ -118,8 +111,7 @@ if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
     h1 {
       color: #fff;
       margin-bottom: 20px;
-      font-size: 200%;
-      /* Increased font size */
+      font-size: 200%; /* Increased font size */
     }
 
     .summary {
@@ -159,85 +151,63 @@ if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
     }
   </style>
 </head>
-
 <body>
   <div class="container">
-    <h1>Confirm Booking</h1>
-
+  <h1>Confirm Booking</h1>
+    
     <div class="summary-box">
       <div class="summary">
-        <div class="summary-item">
-          <img src="<?php echo $image1 ?>" alt="Logo" width="100px"><span style="color: #000;">
-            <?php echo $num_of_ticket ?> x
-            <?php echo $ticketType ?> ticket
-          </span>
-        </div>
+      <div class="summary-item">
+    <img src="<?php echo $image1 ?>" alt="Logo" width="100px"><span style="color: #000;"><?php echo $num_of_ticket ?> x <?php echo $ticketType ?> ticket</span></div>
 
-        <div class="summary-item"><span style="color: #000;">Date:
-            <?php echo $date ?>
-          </span></div>
-        <div class="summary-item"><span style="color: #000;">ShowTime:
-            <?php echo $timing ?>
-          </span></div>
-        <div class="summary-item"><span style="color: #000;">Location:
-            <?php echo $location ?>
-          </span></div>
-        <div class="summary-item"><span style="color: #000;">Seats:
-            <?php echo implode(', ', $seats); ?>
-          </span></div>
-        <div class="summary-item"><span style="color: #000;">Cinema Room:
-            <?php echo $room_id ?>
-          </span></div>
+        <div class="summary-item"><span style="color: #000;">Date:<?php echo $date ?></span></div>
+        <div class="summary-item"><span style="color: #000;">ShowTime:<?php echo $timing ?></span></div>
+        <div class="summary-item"><span style="color: #000;">Location:<?php echo $location ?></span></div>
+        <div class="summary-item"><span style="color: #000;">Seats:<?php echo implode(', ', $seats); ?></span></div>
+        <div class="summary-item"><span style="color: #000;">Cinema Room:<?php echo $room_id ?></span></div>
         <div class="summary-item"></div>
 
 
 
         <?php
-        foreach ($checkOutMenu as $index => $check) {
-          $item_names = $check["item_name"];
-          $price = $check["price"];
-          $image = $check["image"];
-
-          ?>
-
-          <div class="summary-item">
-            <img src=<?php echo $image ?> alt="Popcorn Icon">
-            <span style="color: #000;">
-              <?php echo $qty ?> x
-              <?php echo $item_names ?>
-            </span>
-
-            <!-- <span style="color: #000;">1 x popcorn</span> -->
-          </div>
-          <?php
-        }
-        mysqli_close($conn);
+        foreach($checkOutMenu as $index => $check){
+        $item_names = $check["item_name"];
+        $price =  $check["price"];
+        $image =  $check["image"];
+        
         ?>
-        <div class="summary-item">
-          <span style="color: #000;">Total Price: $
-            <?php echo $total ?>
-          </span>
+ 
+    <div class="summary-item">
+          <img src=<?php echo $image ?> alt="Popcorn Icon">
+          <span style="color: #000;"> <?php echo $qty ?> x <?php echo $item_names  ?></span>
+          
+        <!-- <span style="color: #000;">1 x popcorn</span> -->
+    </div>
+    <?php
+     }
+     mysqli_close($conn);
+     ?>
+    <div class="summary-item">
+    <span style="color: #000;">Total Price: $<?php echo $total ?></span>
         </div>
-
+  
       </div>
-
-      <button class="button" id="emailButton" onclick="sendData(this)">Send Summary to Email</button>
+      
       <form action="index.php">
-        <input type="submit" value="Back to homepage" />
+      <input type="submit" value="Go to home page" />
       </form>
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     function sendData(e) {
-      e.addEventListener('click', () => {
+        e.addEventListener('click', () => {
         const summaryText = document.body.innerText;
         const emailBody = encodeURIComponent(summaryText);
         const emailAddress = 'user@example.com'; // Change this to the recipient's email address
         const mailtoLink = `mailto:${emailAddress}?subject=Order Summary&body=${emailBody}`;
-      });
+        });
     }
-  </script>
+  </script> -->
 </body>
-
 </html>

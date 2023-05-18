@@ -31,6 +31,7 @@ class viewBookingController
     $stmt = $this->conn->prepare($query);
     $stmt->bind_param("i", $userId);
     $stmt->execute();
+
     $result = $stmt->get_result();
 
     $bookings = array();
@@ -41,5 +42,46 @@ class viewBookingController
 
     return $bookings;
   }
+
+  public function addRatings($rating, $booking_id)
+  {
+      // Prepare the update statement
+      $stmt = $this->conn->prepare("UPDATE booking SET review = WHERE booking_id = ?");  
+
+      $stmt->bind_param("ii", $rating,$booking_id);
+  
+      // Execute the statement
+      if ($stmt->execute()) {
+          // Rating added successfully
+          return true;
+      } else {
+          // Error occurred while adding rating
+          return false;
+      }
+  }
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>

@@ -6,17 +6,11 @@ include("checkoutController.php");
 
 
 $checkoutController = new CheckOutController($conn);
-$menu_item =$_POST['menu_item'] ?? null;
-
-if (is_array($menu_item)) {
-    $selectedMenuItems = implode(',', $menu_item);
-} else {
-    $selectedMenuItems = ''; // Set to an empty string or handle it as per your requirement
-}
+$menu_item = $_POST['menu_item'] ?? [];
+$selectedMenuItems = is_array($menu_item) ? implode(',', $menu_item) : '';
 
 $checkOutMenu = $checkoutController->get_menuItems($menu_item);
 $checkoutController->updateLoyaltyPoints();
-
 $movie_items = $_SESSION["movie_id"];
 $checkOutMovies = $checkoutController-> get_movieItems($movie_items);
 $movie_name = $checkOutMovies['movie_name'];
@@ -136,9 +130,6 @@ span.price {
 
 
 
-
-
-
 @media (max-width: 800px) {
   .row {
     flex-direction: column-reverse;
@@ -194,12 +185,17 @@ span.price {
     <h4>Checkout <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></h4> 
 
     <form style = "padding: 5px;"id='myform' method='POST' class='quantity' action="orderSummary.php">
+    <span>Redeemed Reward <span class="price" style="color:red;">-$<?php echo isset($_SESSION['reward_Amount']) ? $_SESSION['reward_Amount'] : 0?></span></span>
+      <input type="hidden"  id="points" value=<?php 
+      echo isset($_SESSION['reward_Amount']) ? $_SESSION['reward_Amount'] : null
+    ?>>
     <div>
       <p><img src="<?php echo $image1 ?>" style="width:131px; height:80px"/>
       <a><?php echo $movie_name?></a>
       <span class="price" id="moviePrice">$<?php echo $moviePrice ?></span></p>
     
     </div>
+ 
     <?php
     foreach($checkOutMenu as $index => $check){
         $item_names = $check["item_name"];
@@ -208,17 +204,20 @@ span.price {
     
     ?>
     <!-- first -->
-  
+
     <div>
      <p><img src="<?php echo $image ?>" style="width:131px; height:80px"/>
         <a><?php echo $item_names ?></a>
         <span class="price" id="price_<?php echo $index ?>">$<?php echo $price ?></span></p>
         <input style="text-align: center; width: 40px; height: 25px; border: none;" name="counter" type="number" 
-        id="counter_<?php echo $index ?>" min="1" max="50" step="1" class="qty" onchange="calculateTotal(<?php echo $index ?>)">
+        id="counter_<?php echo $index ?>" min="1" max="50" step="1" class="qty" onchange="calculateTotalPayable()">
+
         <p style="display: none;">Total: <span class="price" id="total_<?php echo $index ?>" style="color:black"><b></b></span></p>
+
+        
     </div>
         <?php
-    }
+        }
         mysqli_close($conn);
      ?>
     
@@ -235,32 +234,41 @@ span.price {
 </body>
 
 <script>
-function calculateTotal(index) {
+function calculateTotalPayable() {
   // Get the price and quantity elements
-  var price = parseFloat(document.getElementById("price_" + index).innerText.replace("$", ""));
-  var quantity = document.getElementById("counter_" + index).value;
   var moviePrice = parseFloat(document.getElementById("moviePrice").innerHTML.substring(1));
-  // Calculate the total price and update the span element
-  var total = price * quantity;
-  document.getElementById("total_" + index).innerHTML = "$" + total;
-  
+
   // Calculate the total payable
   var totalPayable = 0;
   var allQtyInputs = document.getElementsByClassName("qty");
+  var menuItemSelected = false; // Flag to track if any menu item is selected
+
   for (var i = 0; i < allQtyInputs.length; i++) {
     var qtyInput = allQtyInputs[i];
     var qty = parseInt(qtyInput.value);
     if (!isNaN(qty) && qty > 0) {
       var priceIndex = qtyInput.id.replace("counter_", "");
       var price = parseFloat(document.getElementById("price_" + priceIndex).innerText.replace("$", ""));
-      totalPayable += (price * qty);
+      totalPayable += price * qty;
+      menuItemSelected = true; // Set the flag to true since a menu item is selected
     }
   }
-  totalPayable += moviePrice;
+
+  if (!menuItemSelected) {
+    // No menu item selected, use the movie price directly
+    totalPayable = moviePrice;
+  } else {
+    totalPayable += moviePrice;
+  }
+  var points = document.getElementById("points").value;
+  if (points != null)
+    totalPayable -= points;
   document.getElementById("total3").innerHTML = "$" + totalPayable;
   document.getElementById("totalPriceInput").value = totalPayable;
   document.getElementById("quantityInput").value = qty; 
 }
 
+// Trigger the calculation when the page loads
+window.addEventListener('load', calculateTotalPayable);
+
 </script>
-</html>

@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("DBTicketBooking.php");
 include("navbar.php");
 include("viewBookingController.php");
@@ -7,89 +6,186 @@ include("viewBookingController.php");
 // Create an instance of the BookingController class and pass the database connection.
 $bookingController = new viewBookingController($conn);
 
-// Get the user_id based on the email in the session
-$email = $_SESSION['email'];
-$userId = $bookingController->getUserIdByEmail($email);
+// Get the user_id in the session
+$user_id = $_SESSION['user_id'];
 
-if ($userId) {
-  // Call the getBookingsByUserId() method to retrieve the bookings of the user.
-  $userBookings = $bookingController->getBookingsByUserId($userId);
-?>
+if ($user_id) {
+  $userBookings = $bookingController->getBookingsByUserId($user_id);
 
-<!DOCTYPE html>
-<html>
+  if (isset($_POST['rate'], $_POST['bookingID'])){
+    $rating = (int)$_POST['rate'];
+    $booking_id = (int)$_POST['bookingID'];
+    $userRating = $bookingController -> addRatings($rating,$booking_id);
+  }
 
-<head>
-  <link rel="stylesheet" href="homestylesheet.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  ?>
 
-  <style>
-    body {
-      background-color: black;
-      color: white;
-    }
+  <!DOCTYPE html>
+  <html>
 
-    .header {
-      text-align: center;
-      margin-top: 100px;
-    }
+  <head>
+    <link rel="stylesheet" href="homestylesheet.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    .booking-table {
-      width: 100%;
-      margin-top: 20px;
-    }
+    <style>
+      body {
+        background-color: black;
+        color: white;
+      }
 
-    .booking-table th,
-    .booking-table td {
-      padding: 8px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
+      .header {
+        text-align: center;
+        margin-top: 100px;
+      }
 
-    .booking-table th {
-      background-color: blue; /* Fill colour */
-      color: white; /* Text color for header */
-    }
-  </style>
-</head>
+      .booking-table {
+        width: 100%;
+        margin-top: 20px;
+      }
 
-<body>
-  <div class="header">
-    <h2>Your Movie Bookings</h2>
-  </div>
+      .booking-table th,
+      .booking-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
 
-  <table class="booking-table">
-    <thead>
-      <tr>
-        <th>Booking ID</th>
-        <th>Movie</th>
-        <th>Ticket ID</th>
-        <th>Location</th>
-        <th>Seat Number</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php foreach ($userBookings as $booking) { ?>
+      .booking-table th {
+        background-color: blue;
+        /* Fill colour */
+        color: white;
+        /* Text color for header */
+      }
+      
+      .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+      }
+
+      .rate:not(:checked) > input {
+        position: absolute;
+        top: -9999px;
+      }
+
+      .rate:not(:checked) > label {
+        float: right;
+        width: 1.5rem;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+      }
+
+      .rate:not(:checked) > label:before {
+        content: '★ ';
+      }
+
+      .rate > input:checked ~ label {
+        color: #FFC700;
+      }
+
+      .rate:not(:checked) > label:hover,
+      .rate:not(:checked) > label:hover ~ label {
+        color: #deb217;
+      }
+      
+      .rate > input:checked + label:hover,
+      .rate > input:checked + label:hover ~ label,
+      .rate > input:checked ~ label:hover,
+      .rate > input:checked ~label:hover ~ label,
+      .rate > label:hover ~ input:checked ~ label {
+        color: #c59b08;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h2>Your Movie Bookings</h2>
+    </div>
+
+    <table class="booking-table">
+      <thead>
         <tr>
-          <td><?php echo $booking['booking_id']; ?></td>
-          <td><?php echo $booking['movie_name']; ?></td>
-          <td><?php echo $booking['ticket_id']; ?></td>
-          <td><?php echo $booking['location']; ?></td>
-          <td><?php echo $booking['seat']; ?></td>
+          <th>Booking ID</th>
+          <th>Movie ID</th>
+          <th>Ticket ID</th>
+          <th>Room ID</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Time</th>
+          <th>Number of Ticket</th>
+          <th>Seat Number</th>
+          <th>Submit Ratings</th>
         </tr>
-      <?php } ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php foreach ($userBookings as $booking) { ?>
+          <tr>
+            <td>
+              <?php echo $booking['booking_id']; ?>
+            </td>
+            <td>
+              <?php echo $booking['movie_id']; ?>
+            </td>
+            <td>
+              <?php echo $booking['ticket_id']; ?>
+            </td>
+            <td>
+              <?php echo $booking['room_id']; ?>
+            </td>
+            <td>
+              <?php echo $booking['Date']; ?>
+            </td>
+            <td>
+              <?php echo $booking['location']; ?>
+            </td>
+            <td>
+              <?php echo $booking['time']; ?>
+            </td>
+            <td>
+              <?php echo $booking['num_of_ticket']; ?>
+            </td>
+            <td>
+              <?php echo $booking['seat_num']; ?>
+            </td>
+            <td><form method="post"><div class="rate">       
+            <input type="radio" id="star5" name="rate" value=5 onload="clickCheck(this,<?php echo $booking['review']?>)">     
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rate" value=4 onload="clickCheck(this,<?php echo $booking['review']?>)">
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rate" value=3 onload="clickCheck(this,<?php echo $booking['review']?>)">
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rate" value=2 onload="clickCheck(this,<?php echo $booking['review']?>)">
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rate" value=1 onload="clickCheck(this,<?php echo $booking['review']?>)">
+            <label for="star1" title="text">1 stars</label>
+            <input type="hidden" name="bookingID" value=<?php echo $booking['booking_id']?>>   
+            </div>
+            <div>              
+            <input style = "margin-left: 10px; border:none; border-radius:5px; background-color:#5D3FD3;" name="review" type="submit" value= "Confirm ratings">
+            </div>
+            </form></td>
 
-  
 
-</body>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </body>
+  <script>
+    function clickCheck(e, review) {
+      console.log(review);
+      e.checked = review === e.value ? true: false;
+    }
+  </script>
+  </html>
 
-</html>
-
-<?php
+  <?php
 } else {
   // Handle the case when user_id is not found
   echo "User ID not found.";

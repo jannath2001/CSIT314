@@ -10,12 +10,12 @@ class addRewardController {
 
 
     // Method to add a menu to the database
-    public function addReward($reward_name, $description, $image) {
+    public function addReward($reward_name, $description, $image, $reward_Point, $rewardAmount) {
         // Prepare the insert statement
-        $stmt = $this->conn->prepare("INSERT INTO rewards (reward_name, description, image) VALUES (?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO rewards (reward_name, description, image, reward_Point, rewardAmount) VALUES (?, ?, ?, ?, ?)");
 
         // Bind the parameters
-        $stmt->bind_param("sss", $reward_name, $description, $image);
+        $stmt->bind_param("sssii", $reward_name, $description, $image, $reward_Point, $rewardAmount);
 
         // Execute the statement
         if ($stmt->execute()) {

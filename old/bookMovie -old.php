@@ -290,7 +290,7 @@ if (isset($_POST['bookNow'])) {
                     <th>1</th>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="A1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})' disabled>
+                      <input class="form-check-input" type="checkbox" value="A1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         A1
                       </label>
@@ -298,7 +298,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="B1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})' disabled>
+                      <input class="form-check-input" type="checkbox" value="B1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         B1
                       </label>
@@ -338,7 +338,7 @@ if (isset($_POST['bookNow'])) {
                     </td>
                     <td>
                       <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="G1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})' disabled>
+                      <input class="form-check-input" type="checkbox" value="G1" id="flexCheckDefault" onclick='checkMe(${ticketNumber})'>
                       <label class="form-check-label" for="flexCheckDefault">
                         G1
                       </label>
@@ -501,7 +501,7 @@ if (isset($_POST['bookNow'])) {
 
   function selectButton(e) {
       for (let date of document.querySelectorAll("#Dates").values()) {
-        date.value = date.innerText === e.innerText ? date.innerText : ""
+        date.value = date === e ? date.innerText : ""
       }
     }
     /**
@@ -537,7 +537,7 @@ if (isset($_POST['bookNow'])) {
         document.getElementById("REGULAR") != null ?
             document.getElementById("REGULAR").innerText :
             document.getElementById("GOLD").innerText);
-    let date = [...document.querySelectorAll("#Dates").values()].find(i => i.value != "").value;
+    let date = [...document.querySelectorAll("#Dates").values()].find(i => i.value !== "").value;
     let seats = [];
     /* Find all Input that has been Checked
        Push the label when value has been checked

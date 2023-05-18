@@ -12,15 +12,17 @@ if (isset($_POST['addRewardButton'])) {
     $reward_name = $_POST['reward_name'];
     $description = $_POST['description'];
     $image = $_POST['image'];
+    $reward_Point = $_POST['reward_Point'];
+    $rewardAmount = $_POST['rewardAmount'];
 
 
-    // Call addMovie function of the addMovieController object to add the movie to the database
-    if ($addRewardController->addReward($reward_name, $description, $image)) {
+    // Call addReward function of the addMovieController object to add the movie to the database
+    if ($addRewardController->addReward($reward_name, $description, $image, $reward_Point,$rewardAmount)) {
         // Redirect to a success page
         header("Location: editRewards.php");
         exit();
     } else {
-        // Error occurred while adding movie
+        // Error occurred while adding reward
         echo "Error occurred while adding menu: " . mysqli_error($addRewardController->conn);
     }
 }
@@ -138,6 +140,12 @@ if (isset($_POST['addRewardButton'])) {
             <br><br>
             <label for="image">Enter the image link:</label>
             <input type="text" name="image" placeholder="Enter the image link">
+            <br><br>
+            <label for="reward_Point">Enter the points needed to redeem reward:</label>
+            <input type="number" name="reward_Point" placeholder="Enter the points needed to redeem reward">
+            <br><br>
+            <label for="rewardAmount">Enter reward amount:</label>
+            <input type="number" name="rewardAmount" placeholder="Enter reward amount">
             <br><br>
             <button type="submit" name="addRewardButton" value="addRewardButton">Add the item to Menu</button>
             <a href="editRewards.php" class="add-reward-button">Back to Edit Menu</a>

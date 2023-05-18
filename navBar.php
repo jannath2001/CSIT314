@@ -69,8 +69,10 @@ $loyaltyPoints = Loyalty::getLoyaltyPoints();
                 <li><a class="dropdown-item" href="editMovie.php">Edit Movie Page</a></li>
                 <li><a class="dropdown-item" href="editMenu.php">Edit Food and Beverage</a></li>
                 <li><a class="dropdown-item" href="movieAllocation.php">Allocation of Movie</a></li>
-                <li><a class="dropdown-item" href="#">View Sales Report</a></li>
+                <li><a class="dropdown-item" href="salesReport.php">View Sales Report</a></li>
                 <li><a class="dropdown-item" href="editRewards.php">Edit Rewards Menu</a></li>
+                <li><a class="dropdown-item" href="customerRating.php">View Customer Rating</a></li>
+
             </ul>
 
 

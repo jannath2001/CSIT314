@@ -79,9 +79,23 @@ $rewardEditController = new rewardUpdateController($conn);
 
                 <div class="mb-3">
                     <label for="image">Image:</label>
-                    <input type="text" name="image" value="<?= $result['image'] ?>" placeholder="Enter the image"
-                        Required>
+                    <input type="text" name="image" value="<?= $result['image'] ?>" 
+                        placeholder="Enter the image" Required>
                 </div>
+
+
+                <div class="mb-3">
+                    <label for="reward_Point">Points needed for Reward:</label>
+                    <input type="number" name="reward_Point" value="<?= $result['reward_Point'] ?>" 
+                        placeholder="Points needed for Reward" Required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="rewardAmount">Reward Amount:</label>
+                    <input type="number" name="rewardAmount" value="<?= $result['rewardAmount'] ?>" 
+                        placeholder="Reward amount" Required>
+                </div>
+                
 
                 <div class="mb-3">
                     <button type="submit" name="update" value="update">Update</button>

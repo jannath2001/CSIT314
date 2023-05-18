@@ -1,13 +1,5 @@
 <?php
-include("DBTicketBooking.php");
-include("editRewardsController.php");
-include("navBar.php");
-include("footer.php");
-// create a new instance of the movie controller
-$rewardsController = new rewardsController($conn);
 
-// call the getAllMovies method to retrieve the movie data
-$rewards = $rewardsController->getAllRewards($conn);
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +64,7 @@ $rewards = $rewardsController->getAllRewards($conn);
             text-align: center;
         }
 
-        .add-Rewards-container{
+        #addcontainer{
             display: inline-block;
             padding: 5px;
             background-color: #5D3FD3;            
@@ -82,10 +74,10 @@ $rewards = $rewardsController->getAllRewards($conn);
             font-weight: bold;
             text-align: center;
             margin-top:10px;
-            margin-left:850px;
+            margin-left:800px;
         }
 
-        .add-Rewards-container:hover{
+        #addcontainer:hover{
             background-color: green; 
         }
     </style>
@@ -96,52 +88,48 @@ $rewards = $rewardsController->getAllRewards($conn);
 
 <body>
 <div class="header">
-        <h2>Displaying All rewards</h2>
+        <h2>Displaying All Food</h2>
     </div>
 
     <div class="table-container">
         <table>
             <thead>
                 <tr>
-                    <th>Reward ID</th>
-                    <th>Reward Name</th>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
                     <th>Description</th>
+                    <th>Price</th>
                     <th>Image</th>
-                    <th>Points for Reward</th>
-                    <th>Reward Amount</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($rewards as $rew): ?>
+                <?php foreach ($foodBeverage as $foodBev): ?>
                     <tr>
                         <td>
-                            <?php echo $rew['reward_id']; ?>
+                            <?php echo $foodBev['menu_id']; ?>
                         </td>
                         <td>
-                            <?php echo $rew['reward_name']; ?>
+                            <?php echo $foodBev['item_name']; ?>
                         </td>
                         <td>
-                            <?php echo $rew['description']; ?>
+                            <?php echo $foodBev['description']; ?>
                         </td>
                         <td>
-                            <?php echo $rew['image']; ?>
+                            <?php echo $foodBev['price']; ?>
                         </td>
                         <td>
-                            <?php echo $rew['reward_Point']; ?>
-                        </td>
-                        <td>
-                            <?php echo $rew['rewardAmount']; ?>
+                            <?php echo $foodBev['image']; ?>
                         </td>
                         <td>
                         <!-- Edit movie button -->
-                        <?php if (isset($rew['reward_id'])): ?>
-                            <a href="editThatRewards.php?reward_id=<?php echo $rew['reward_id']; ?>" class="edit">Edit</a>
+                        <?php if (isset($foodBev['menu_id'])): ?>
+                            <a href="editThatMenu.php?menu_id=<?php echo $foodBev['menu_id']; ?>" class="edit">Edit</a>
                         <?php endif; ?>
 
                         <!-- Delete movie button -->
-                        <form method="post" action="deleteReward.php">
-                            <input type="hidden" name="reward_id" value="<?php echo $rew['reward_id']; ?>">
+                        <form method="post" action="deleteMenu.php">
+                            <input type="hidden" name="menu_id" value="<?php echo $foodBev['menu_id']; ?>">
                             <button type="submit" class="delete" onclick="return confirm('Are you sure you want to delete this movie?')">Delete</button>
                         </form>
                         </td>
@@ -151,10 +139,12 @@ $rewards = $rewardsController->getAllRewards($conn);
         </table>
         </div>
         <!-- Add menu Button-->
-        <div class="add-Rewards-container">
-            <a href="addReward.php" class="add-Rewards-button" style = "color:white; text-decoration: none;">Add rewards</a>
-        
-    </div>
+        <div class="add-food&beverage-container" id="addcontainer">
+            <a href="addMenu.php" class="add-food&beverage-button" style = "color:white; text-decoration: none;">Add Food or Beverages</a>
+        </div>
+    
 </body>
+<html>
 
-</html>
+
+
