@@ -154,15 +154,15 @@ if ($user_id) {
               <?php echo $booking['seat_num']; ?>
             </td>
             <td><form method="post"><div class="rate">       
-            <input type="radio" id="star5" name="rate" value=5 onload="clickCheck(this,<?php echo $booking['review']?>)">     
+            <input type="radio" id="star5" name="rate" value=5 <?php echo $booking['review'] == 5 ? 'checked' : '' ?>>     
             <label for="star5" title="text">5 stars</label>
-            <input type="radio" id="star4" name="rate" value=4 onload="clickCheck(this,<?php echo $booking['review']?>)">
+            <input type="radio" id="star4" name="rate" value=4 <?php echo $booking['review'] == 4 ? 'checked' : '' ?>>
             <label for="star4" title="text">4 stars</label>
-            <input type="radio" id="star3" name="rate" value=3 onload="clickCheck(this,<?php echo $booking['review']?>)">
+            <input type="radio" id="star3" name="rate" value=3 <?php echo $booking['review'] == 3 ? 'checked' : '' ?>>
             <label for="star3" title="text">3 stars</label>
-            <input type="radio" id="star2" name="rate" value=2 onload="clickCheck(this,<?php echo $booking['review']?>)">
+            <input type="radio" id="star2" name="rate" value=2 <?php echo $booking['review'] == 2 ? 'checked' : '' ?>>
             <label for="star2" title="text">2 stars</label>
-            <input type="radio" id="star1" name="rate" value=1 onload="clickCheck(this,<?php echo $booking['review']?>)">
+            <input type="radio" id="star1" name="rate" value=1 <?php echo $booking['review'] == 1 ? 'checked' : '' ?>>
             <label for="star1" title="text">1 stars</label>
             <input type="hidden" name="bookingID" value=<?php echo $booking['booking_id']?>>   
             </div>
@@ -178,9 +178,9 @@ if ($user_id) {
     </table>
   </body>
   <script>
-    function clickCheck(e, review) {
+    function check(e,review) {
+      console.log(e);
       console.log(review);
-      e.checked = review === e.value ? true: false;
     }
   </script>
   </html>

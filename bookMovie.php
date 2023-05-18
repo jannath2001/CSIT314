@@ -537,7 +537,7 @@ if (isset($_POST['bookNow'])) {
         document.getElementById("REGULAR") != null ?
             document.getElementById("REGULAR").innerText :
             document.getElementById("GOLD").innerText);
-    let date = [...document.querySelectorAll("#Dates").values()].find(i => i.value != "").value;
+    let date = [...document.querySelectorAll("#Dates").values()].find(i => i.value != "").value.slice(0,-3);
     let seats = [];
     /* Find all Input that has been Checked
        Push the label when value has been checked

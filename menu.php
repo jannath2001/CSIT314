@@ -30,13 +30,13 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
   $timing = date("H:i", strtotime($timing));
   $seats = explode(",", $seats);
   $_SESSION["movie_id"] = $movie_id;
-  $_SESSION["date"] = $date; // Corrected variable assignment
+  $_SESSION['date'] = $_POST['date']; // Corrected variable assignment
   $_SESSION["time"] = $timing;
   $_SESSION['location'] = $location;
   $_SESSION['ticketType'] = $ticketType;
   $_SESSION['seats'] = $seats;
 
-  var_dump( $date);
+  var_dump($date);
   var_dump( $timing);
   // var_dump( $dateTime);
   // var_dump( $seats);

@@ -46,7 +46,7 @@ class viewBookingController
   public function addRatings($rating, $booking_id)
   {
       // Prepare the update statement
-      $stmt = $this->conn->prepare("UPDATE booking SET review = WHERE booking_id = ?");  
+      $stmt = $this->conn->prepare("UPDATE booking SET review = ? WHERE booking_id = ?");  
 
       $stmt->bind_param("ii", $rating,$booking_id);
   
