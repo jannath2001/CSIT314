@@ -1,7 +1,7 @@
 <?php
 include("DBTicketBooking.php");
 
-class CheckOutController
+class orderSummaryController
 {
 
     private $conn;
@@ -32,6 +32,29 @@ class CheckOutController
     
     
     }
+
+    public function addTicket ($user_id,$seats, $movie_id, $room_id, $total, $date, $timing, $ticketType, $location, $num_of_ticket)
+    {
+        // Convert seat_num array to a string
+        $seat_num_str = implode(', ', $seats);
+    
+        $stmt = $this->conn->prepare("INSERT INTO movie_ticket (user_id, seat_num, movie_id, room_id, total, date, time, ticketType, location, num_of_ticket) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    // Bind the parameters
+    $stmt->bind_param("issiissssi", $user_id, $seat_num_str, $movie_id, $room_id, $total, $date, $timing, $ticketType, $location, $num_of_ticket);
+    
+        // Execute the statement
+        if ($stmt->execute()) {
+            // Ticket added successfully
+            return true;
+        } else {
+            // Error occurred while adding ticket
+            return false;
+        }
+    }
+    
+
+    
 
    
 }

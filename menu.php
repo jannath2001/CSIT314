@@ -26,15 +26,18 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
   $ticketType= $_POST['ticketType'];
   $date = $_POST['date'];
 
-  $dateTime = date('Y-m-d H:i:s', strtotime("$date $timing"));
+  $date = date("Y-m-d", strtotime($date)); // Convert to format: YYYY-MM-DD
+  $timing = date("H:i", strtotime($timing));
   $seats = explode(",", $seats);
   $_SESSION["movie_id"] = $movie_id;
-  $_SESSION["dateTime"] = $dateTime; // Corrected variable assignment
+  $_SESSION["date"] = $date; // Corrected variable assignment
+  $_SESSION["time"] = $timing;
   $_SESSION['location'] = $location;
   $_SESSION['ticketType'] = $ticketType;
   $_SESSION['seats'] = $seats;
 
-  var_dump( $ticketType);
+  var_dump( $date);
+  var_dump( $timing);
   // var_dump( $dateTime);
   // var_dump( $seats);
   // var_dump( $location);

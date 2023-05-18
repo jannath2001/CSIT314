@@ -32,24 +32,6 @@ class CheckOutController
 
     }
 
-    public function addTicket($seat_num, $movie_id, $room_id, $total, $dateTime, $ticketType, $location, $num_of_ticket)
-    {
-        // Prepare the insert statement
-        $stmt = $this->conn->prepare("INSERT INTO movie_ticket (seat_num, movie_id, room_id, total, dateTime , ticketType, 
-    location, num_of_ticket) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-
-        // Bind the parameters
-        $stmt->bind_param("s,i,i,i,,s,s,i", $seat_num, $movie_id, $room_id, $total, $dateTime, $ticketType, $location, $num_of_ticket);
-
-        // Execute the statement
-        if ($stmt->execute()) {
-            // Movie added successfully
-            return true;
-        } else {
-            // Error occurred while adding movie
-            return false;
-        }
-    }
     function get_movieItems($movieId)
     {
 
