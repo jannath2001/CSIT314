@@ -6,7 +6,14 @@ include("checkoutController.php");
 
 
 $checkoutController = new CheckOutController($conn);
-$menu_item = $_POST['menu_item'];
+$menu_item =$_POST['menu_item'] ?? null;
+
+if (is_array($menu_item)) {
+    $selectedMenuItems = implode(',', $menu_item);
+} else {
+    $selectedMenuItems = ''; // Set to an empty string or handle it as per your requirement
+}
+
 $checkOutMenu = $checkoutController->get_menuItems($menu_item);
 $checkoutController->updateLoyaltyPoints();
 

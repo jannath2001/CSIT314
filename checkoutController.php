@@ -12,24 +12,27 @@ class CheckOutController
 
     function get_menuItems($menu_items)
     {
-        $query = "SELECT * FROM food_beverage WHERE menu_id IN (" . implode(",", $menu_items) . ")";
-        $result = mysqli_query($this->conn, $query);
-
-        $items = array();
-
-        while ($row = mysqli_fetch_assoc($result)) {
-            $item = array(
-                "menu_id" => $row['menu_id'],
-                "item_name" => $row['item_name'],
-                "description" => $row['description'],
-                "price" => $row['price'],
-                "image" => $row['image']
-            );
-            $items[] = $item;
+        if (is_array($menu_items) && !empty($menu_items)) {
+            $query = "SELECT * FROM food_beverage WHERE menu_id IN (" . implode(",", $menu_items) . ")";
+            $result = mysqli_query($this->conn, $query);
+    
+            $items = array();
+    
+            while ($row = mysqli_fetch_assoc($result)) {
+                $item = array(
+                    "menu_id" => $row['menu_id'],
+                    "item_name" => $row['item_name'],
+                    "description" => $row['description'],
+                    "price" => $row['price'],
+                    "image" => $row['image']
+                );
+                $items[] = $item;
+            }
+    
+            return $items;
         }
-
-        return $items;
-
+    
+        return array();
     }
 
     function get_movieItems($movieId)

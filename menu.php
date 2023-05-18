@@ -134,9 +134,8 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
     <div class="container">
 
    
-    <form method="post" action="checkout.php" style = "display:flex; flex-direction:row;">
+    <form method="post" action="checkout.php" style="display:flex; flex-direction:row;">
     <?php
-    
     foreach($menu as $menus){
         $menu_id = $menus['menu_id'];
         $item_name = $menus['item_name'];
@@ -152,17 +151,18 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
             <input type="checkbox" name="menu_item[]" value="<?php echo $menu_id ?>" id="number<?php echo $menu_id ?>" />
             <label for="number<?php echo $menu_id ?>">SELECT</label>
         </div>
-     <?php
+    <?php
     }
-    //Close database connection
+    // Close database connection
     mysqli_close($conn);
-     ?>
+    ?>
     
-    <div style = "display:flex; flex-direction:column; margin-top:33%;">
-    <button type="submit">Next</button>
+    <div style="display:flex; flex-direction:column; margin-top:33%;">
+        <button type="submit">Next</button>
     </div>
+</form>
 
-    </form>
+
     <?php
      if(isset($_POST['menu_item[]'])) {
       // Checkbox is checked
