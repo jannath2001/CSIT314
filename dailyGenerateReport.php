@@ -1,7 +1,7 @@
 <?php
 include("DBTicketBooking.php");
 include("navBar.php");
-include("dailyController.php");
+include("salesController.php");
 include("footer.php");
 
 // create a new instance of the movie controller
