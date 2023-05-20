@@ -103,7 +103,7 @@ $loyaltyPoints = Loyalty::getLoyaltyPoints();
             <ul class="dropdown-menu">
                 <!-- //items in your drop out// -->
                 <li><a class="dropdown-item" href="editUserAccount.php">Edit User Account</a></li> <!-- Add and Remove-->
-                <li><a class="dropdown-item" href="#">Change Theme of Website</a></li>
+          
                 
             </ul>
 
