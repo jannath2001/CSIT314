@@ -19,6 +19,7 @@ nav{
     justify-content: space-around;
     align-items: center;
     width:100%;
+    height: 80px; /* Set the desired height for the navbar */
     border:1px solid rgba(0,0,0,0.04);    
     background-image: linear-gradient(to right, #000000, #6650A5);  
     position: fixed;

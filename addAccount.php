@@ -1,24 +1,34 @@
 <?php
 include("DBTicketBooking.php");
 include("addAccountController.php");
-include("navBar.php");
+// include("navBar.php");
 include("footer.php");
-// Create an object of addMenuController class
+
+// Create an object of addAccountController class
 $addAccountController = new addAccountController($conn);
 
-if (isset($_POST['addAccountButton'])) {
+// Initialize an empty array for storing password errors
+$passwordErrors = array();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the form data
     $email = $_POST['email'];
     $password = $_POST['password'];
     $user_type = $_POST['user_type'];
-    // Call addMovie function of the addMovieController object to add the movie to the database
-    if ($addAccountController->addAccount($email, $password, $user_type)) {
-        // Redirect to a success page
-        header("Location: editUserAccount.php");
-        exit();
-    } else {
-        // Error occurred while adding movie
-        echo "Error occurred while adding menu: " . mysqli_error($addAccountController->conn);
+
+    // Validate the password
+    $passwordErrors = $addAccountController->validatePassword($password);
+
+    if (empty($passwordErrors)) {
+        // Call addAccount function of the addAccountController object to add the account to the database
+        if ($addAccountController->addAccount($email, $password, $user_type)) {
+            // Redirect to a success page
+            header("Location: editUserAccount.php");
+            exit();
+        } else {
+            // Error occurred while adding account
+            $passwordErrors[] = "Error occurred while adding account: " . mysqli_error($addAccountController->conn);
+        }
     }
 }
 ?>
@@ -42,6 +52,7 @@ if (isset($_POST['addAccountButton'])) {
             margin-left: 500px;
             margin-top: 100px;
         }
+
 
         form {
             width: 550px;
@@ -116,6 +127,10 @@ if (isset($_POST['addAccountButton'])) {
         .add-movie-button:hover {
             background-color: #45a049;
         }
+
+        .error-message {
+            color: black;
+        }
     </style>
 </head>
 
@@ -144,6 +159,16 @@ if (isset($_POST['addAccountButton'])) {
                 <option name="user_type" value="systemAdmin">systemAdmin</option>
             </select>
             <br><br>
+
+            <!-- Display password errors within the form -->
+            <?php if (!empty($passwordErrors)): ?>
+                <div class="error-container">
+                    <?php foreach ($passwordErrors as $error): ?>
+                        <p class="error-message"><?php echo $error; ?></p>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
             <button type="submit" name="addAccountButton" value="addAccountButton">Add the account</button>
             <a href="editUserAccount.php" class="add-Account-button">Back to Edit Account</a>
 

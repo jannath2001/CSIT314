@@ -1,5 +1,5 @@
 <?php
-// Required to start everytime passing of data with session is required
+// Required to start every time passing of data with session is required
 session_start();
 include("DBTicketBooking.php");
 include("checkoutController.php");
@@ -13,11 +13,9 @@ $num_of_ticket = 0;
 $ticketType = "";
 $seats = "";
 $room_id = "";
-$dateTime = "";
 $location = "";
 $qty = 0;
-$_SESSION['reward_Amount']  = null;
-
+$_SESSION['reward_Amount'] = null;
 
 if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
   $menu_item = $_SESSION['menu_item'];
@@ -33,55 +31,33 @@ if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
   $seats = $_SESSION['seats'];
   $room_id = $_SESSION['room_id'];
   $total = $_POST['totalPrice'];
-  $date = $_SESSION["date"];
-  $timing = $_SESSION["time"];
+  $date = isset($_SESSION["date"]) ? $_SESSION["date"] : "";
+  $timing = isset($_SESSION["time"]) ? $_SESSION["time"] : "";
+  $date = date("Y-m-d", strtotime($date));
   $ticketType = $_SESSION["ticketType"];
   $location = $_SESSION["location"];
   $num_of_ticket = count($seats);
   $movie_id = $_SESSION["movie_id"];
   $user_id = $_SESSION['user_id'];
   $qty = $_POST["quantity"];
-
-
-
+  
 
   $ticket_id = $orderSummary->addTicket($user_id, $seats, $movie_id, $room_id, $total, $date, $timing, $ticketType, $location, $num_of_ticket);
+  var_dump($ticket_id);
   if ($ticket_id !== false) {
     $orderSummary->addBooking($user_id, $movie_id, $ticket_id, $room_id, $date, $timing, $location, $num_of_ticket, $seats);
   } else {
     echo ("Error Adding to Bookings");
   }
+} elseif (isset($_POST['totalPrice'])) {
+  $menu_item = $_SESSION['menu_item'];
+  $checkOutMenu = $checkoutController->get_menuItems($menu_item);
+  $total = $_POST['totalPrice'];
+
+
+  $qty = $_POST["quantity"];
 }
 
-
-/* SQL Queries for Loyalty Points
- *
- *
- */
-// $userId = $_SESSION['user_id'];
-// if (isset($_COOKIE['totalPrice'])) {
-//     $loyaltyPoints = $_COOKIE['totalPrice'];
-//     $selectQuery = "SELECT points FROM loyalty_member WHERE user_id = ?";
-//     $selectStatement = $conn->prepare($selectQuery);
-//     $selectStatement->bind_param("i", $userId);
-//     $selectStatement->execute();
-
-//     // Bind the result to $currentPoints
-//     $currentPoints = 0;
-//     $selectStatement->bind_result($currentPoints);
-//     $selectStatement->fetch();
-//     $selectStatement->close();
-
-//     // Calculate updated loyalty points
-//     $updatedPoints = $currentPoints + $loyaltyPoints;
-
-//     // Update the user's loyalty points in the database
-//     $updateQuery = "UPDATE loyalty_member SET points = ? WHERE user_id = ?";
-//     $updateStatement = $conn->prepare($updateQuery);
-//     $updateStatement->bind_param("ii", $updatedPoints, $userId);
-//     $updateStatement->execute();
-//     $updateStatement->close();
-// }
 ?>
 
 <!DOCTYPE html>
@@ -166,64 +142,92 @@ if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
 
     <div class="summary-box">
       <div class="summary">
+
         <div class="summary-item">
-          <img src="<?php echo $image1 ?>" alt="Logo" width="100px"><span style="color: #000;">
-            <?php echo $num_of_ticket ?> x
-            <?php echo $ticketType ?> ticket
-          </span>
+          <?php if (!empty($image1) && $num_of_ticket && $ticketType): ?>
+            <img src="<?php echo $image1 ?>" alt="Logo" width="100px">
+            <span style="color: #000;">
+              <?php echo $num_of_ticket ?> x
+              <?php echo $ticketType ?> ticket
+            </span>
+          <?php endif; ?>
         </div>
 
-        <div class="summary-item"><span style="color: #000;">Date:
-            <?php echo $date ?>
-          </span></div>
-        <div class="summary-item"><span style="color: #000;">ShowTime:
-            <?php echo $timing ?>
-          </span></div>
-        <div class="summary-item"><span style="color: #000;">Location:
-            <?php echo $location ?>
-          </span></div>
-        <div class="summary-item"><span style="color: #000;">Seats:
-            <?php echo implode(', ', $seats); ?>
-          </span></div>
-        <div class="summary-item"><span style="color: #000;">Cinema Room:
-            <?php echo $room_id ?>
-          </span></div>
+        <div class="summary-item">
+          <?php if (!empty($date)): ?>
+            <span style="color: #000;">Date:
+              <?php echo $date ?>
+            </span>
+          <?php endif; ?>
+        </div>
+
+        <div class="summary-item">
+          <?php if (!empty($timing)): ?>
+            <span style="color: #000;">ShowTime:
+              <?php echo $timing ?>
+            </span>
+          <?php endif; ?>
+        </div>
+
+        <div class="summary-item">
+          <?php if (!empty($location)): ?>
+            <span style="color: #000;">Location:
+              <?php echo $location ?>
+            </span>
+          <?php endif; ?>
+        </div>
+
+        <div class="summary-item">
+          <?php if (!empty($seats)): ?>
+            <span style="color: #000;">Seats:
+              <?php echo is_array($seats) ? implode(', ', $seats) : ''; ?>
+            </span>
+          <?php endif; ?>
+        </div>
+
+        <div class="summary-item">
+          <?php if (!empty($room_id)): ?>
+            <span style="color: #000;">Cinema Room:
+              <?php echo $room_id ?>
+            </span>
+          <?php endif; ?>
+        </div>
+
+
         <div class="summary-item"></div>
 
-
-
         <?php
-        foreach ($checkOutMenu as $index => $check) {
-          $item_names = $check["item_name"];
-          $price = $check["price"];
-          $image = $check["image"];
+        if (is_array($checkOutMenu)) {
+          foreach ($checkOutMenu as $index => $check) {
+            $item_names = $check["item_name"];
+            $price = $check["price"];
+            $image = $check["image"];
 
-          ?>
+            ?>
 
-          <div class="summary-item">
-            <img src=<?php echo $image ?> alt="Popcorn Icon">
-            <span style="color: #000;">
-              <?php echo $qty ?> x
-              <?php echo $item_names ?>
-            </span>
+            <div class="summary-item">
+              <img src=<?php echo $image ?> alt="Popcorn Icon">
+              <span style="color: #000;">
+                <?php echo $qty ?> x
+                <?php echo $item_names ?>
+              </span>
 
-            <!-- <span style="color: #000;">1 x popcorn</span> -->
-          </div>
-          <?php
+              <!-- <span style="color: #000;">1 x popcorn</span> -->
+            </div>
+            <?php
+          }
         }
         mysqli_close($conn);
         ?>
         <div class="summary-item">
           <span style="color: #000;">Total Price: $
-            <?php echo $total ?>
+            <?php echo isset($total) ? $total : ''; ?>
           </span>
         </div>
 
       </div>
-
-      <button class="button" id="emailButton" onclick="sendData(this)">Send Summary to Email</button>
       <form action="index.php">
-        <input type="submit" value="Back to homepage" />
+      <button class="button" id="emailButton">Return to home</button>
       </form>
     </div>
   </div>

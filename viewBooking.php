@@ -11,10 +11,9 @@ $user_id = $_SESSION['user_id'];
 
 if ($user_id) {
   $userBookings = $bookingController->getBookingsByUserId($user_id);
-
-  if (isset($_POST['rate'], $_POST['bookingID'])){
-    $rating = (int)$_POST['rate'];
-    $booking_id = (int)$_POST['bookingID'];
+  if (isset($_POST['rate'], $_COOKIE['selectedID'])){
+    $booking_id = (int) $_COOKIE['selectedID'];
+    $rating = (int) $_POST['rate'][$booking_id];
     $userRating = $bookingController -> addRatings($rating,$booking_id);
   }
 
@@ -153,34 +152,32 @@ if ($user_id) {
             <td>
               <?php echo $booking['seat_num']; ?>
             </td>
-            <td><form method="post"><div class="rate">       
-            <input type="radio" id="star5" name="rate" value=5 <?php echo $booking['review'] == 5 ? 'checked' : '' ?>>     
-            <label for="star5" title="text">5 stars</label>
-            <input type="radio" id="star4" name="rate" value=4 <?php echo $booking['review'] == 4 ? 'checked' : '' ?>>
-            <label for="star4" title="text">4 stars</label>
-            <input type="radio" id="star3" name="rate" value=3 <?php echo $booking['review'] == 3 ? 'checked' : '' ?>>
-            <label for="star3" title="text">3 stars</label>
-            <input type="radio" id="star2" name="rate" value=2 <?php echo $booking['review'] == 2 ? 'checked' : '' ?>>
-            <label for="star2" title="text">2 stars</label>
-            <input type="radio" id="star1" name="rate" value=1 <?php echo $booking['review'] == 1 ? 'checked' : '' ?>>
-            <label for="star1" title="text">1 stars</label>
-            <input type="hidden" name="bookingID" value=<?php echo $booking['booking_id']?>>   
+            <td><form method="post" onsubmit="onSelect(this)"><div class="rate">
+            <input type="radio" id="<?php echo "star5" . $booking['booking_id'] ?>" name="<?php echo "rate[" . $booking['booking_id'] . "]"?>" value=5 <?php echo $booking['review'] == 5 ? 'checked' : '' ?>>     
+            <label for="<?php echo "star5" . $booking['booking_id'] ?>" title="text">5 stars</label>
+            <input type="radio" id="<?php echo "star4" . $booking['booking_id'] ?>" name="<?php echo "rate[" . $booking['booking_id'] . "]"?>" value=4 <?php echo $booking['review'] == 4 ? 'checked' : '' ?>>
+            <label for="<?php echo "star4" . $booking['booking_id'] ?>" title="text">4 stars</label>
+            <input type="radio" id="<?php echo "star3" . $booking['booking_id'] ?>" name="<?php echo "rate[" . $booking['booking_id'] . "]"?>" value=3 <?php echo $booking['review'] == 3 ? 'checked' : '' ?>>
+            <label for="<?php echo "star3" . $booking['booking_id'] ?>" title="text">3 stars</label>
+            <input type="radio" id="<?php echo "star2" . $booking['booking_id'] ?>" name="<?php echo "rate[" . $booking['booking_id'] . "]"?>" value=2 <?php echo $booking['review'] == 2 ? 'checked' : '' ?>>
+            <label for="<?php echo "star2" . $booking['booking_id'] ?>" title="text">2 stars</label>
+            <input type="radio" id="<?php echo "star1" . $booking['booking_id'] ?>" name="<?php echo "rate[" . $booking['booking_id'] . "]"?>" value=1 <?php echo $booking['review'] == 1 ? 'checked' : '' ?>>
+            <label for="<?php echo "star1" . $booking['booking_id'] ?>" title="text">1 stars</label>
+            <input type="hidden" id="bookingID" name="<?php echo 'booking[' . $booking['booking_id'] . ']'?>" value=<?php echo $booking['booking_id']?>>
             </div>
             <div>              
             <input style = "margin-left: 10px; border:none; border-radius:5px; background-color:#5D3FD3;" name="review" type="submit" value= "Confirm ratings">
             </div>
             </form></td>
-
-
           </tr>
         <?php } ?>
       </tbody>
     </table>
   </body>
   <script>
-    function check(e,review) {
-      console.log(e);
-      console.log(review);
+    function onSelect(e) {
+      var bookingID = e.elements.namedItem("bookingID");
+      document.cookie = "selectedID=" + bookingID.value;
     }
   </script>
   </html>

@@ -45,7 +45,11 @@ $loyaltyPoints = Loyalty::getLoyaltyPoints();
         <?php if (isset($_SESSION['email'])): ?>
             <li><a href="logout.php">Log out</a></li>
         <?php endif; ?>
-        <li><a href="menu.php">Menu</a></li>
+        <?php if (isset($_SESSION['email'])): ?>
+            <?php if ($user_type != 'loyaltyMember'): ?>
+                <li><a href="menu.php">Menu</a></li>
+            <?php endif; ?>
+        <?php endif; ?>
     </ul>
     <!--search------------->
     <div class="search">
@@ -71,6 +75,7 @@ $loyaltyPoints = Loyalty::getLoyaltyPoints();
                 <li><a class="dropdown-item" href="movieAllocation.php">Allocation of Movie</a></li>
                 <li><a class="dropdown-item" href="salesReport.php">View Sales Report</a></li>
                 <li><a class="dropdown-item" href="editRewards.php">Edit Rewards Menu</a></li>
+                <li><a class="dropdown-item" href="promotions.php">View Promotions</a></li>
                 <li><a class="dropdown-item" href="customerRating.php">View Customer Rating</a></li>
 
             </ul>

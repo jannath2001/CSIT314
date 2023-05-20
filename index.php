@@ -1,7 +1,7 @@
 <?php
+session_start();
 include("DBTicketBooking.php");
 include("navBar.php");
-
 ?>
 
 

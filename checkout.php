@@ -8,17 +8,30 @@ include("checkoutController.php");
 $checkoutController = new CheckOutController($conn);
 $menu_item = $_POST['menu_item'] ?? [];
 $selectedMenuItems = is_array($menu_item) ? implode(',', $menu_item) : '';
-
 $checkOutMenu = $checkoutController->get_menuItems($menu_item);
 $checkoutController->updateLoyaltyPoints();
-$movie_items = $_SESSION["movie_id"];
-$checkOutMovies = $checkoutController-> get_movieItems($movie_items);
-$movie_name = $checkOutMovies['movie_name'];
-$image1 = $checkOutMovies['image'];
-$price1 = $checkOutMovies['price'];
-$seats = $_SESSION['seats'];
-$length = count($seats);
-$moviePrice = $price1 * $length;
+
+// Check if movie_id is set and not empty
+if (isset($_SESSION["movie_id"]) && !empty($_SESSION["movie_id"])) {
+  $movie_items = $_SESSION["movie_id"];
+  $checkOutMovies = $checkoutController->get_movieItems($movie_items);
+  $checkoutController->updateLoyaltyPoints();
+  $movie_name = $checkOutMovies['movie_name'];
+  $image1 = $checkOutMovies['image'];
+  $price1 = $checkOutMovies['price'];
+  $seats = $_SESSION['seats'];
+  $length = count($seats);
+  $moviePrice = $price1 * $length;
+} else {
+  $movie_name = "";
+  $image1 = "";
+  $price1 = 0;
+  $seats = [];
+  $length = 0;
+  $moviePrice = 0;
+  $checkoutController->updateLoyaltyPoints();
+}
+
 $_SESSION['menu_item'] = $menu_item;
 
 ?>
@@ -28,8 +41,8 @@ $_SESSION['menu_item'] = $menu_item;
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body {
   font-family: Arial;
@@ -190,10 +203,11 @@ span.price {
       echo isset($_SESSION['reward_Amount']) ? $_SESSION['reward_Amount'] : null
     ?>>
     <div>
+    <?php if (!empty($movie_name)): ?>
       <p><img src="<?php echo $image1 ?>" style="width:131px; height:80px"/>
       <a><?php echo $movie_name?></a>
       <span class="price" id="moviePrice">$<?php echo $moviePrice ?></span></p>
-    
+      <?php endif; ?>
     </div>
  
     <?php
@@ -232,43 +246,57 @@ span.price {
 </div>
 
 </body>
-
 <script>
 function calculateTotalPayable() {
-  // Get the price and quantity elements
-  var moviePrice = parseFloat(document.getElementById("moviePrice").innerHTML.substring(1));
+  // Get the movie price, if available
+  var moviePriceElement = document.getElementById("moviePrice");
+  var moviePrice = moviePriceElement ? parseFloat(moviePriceElement.innerHTML.substring(1)) : 0;
 
   // Calculate the total payable
   var totalPayable = 0;
-  var allQtyInputs = document.getElementsByClassName("qty");
+  var qty = 0; // Initialize the quantity variable
   var menuItemSelected = false; // Flag to track if any menu item is selected
 
+  var allQtyInputs = document.getElementsByClassName("qty");
   for (var i = 0; i < allQtyInputs.length; i++) {
     var qtyInput = allQtyInputs[i];
-    var qty = parseInt(qtyInput.value);
-    if (!isNaN(qty) && qty > 0) {
+    var qtyValue = parseInt(qtyInput.value);
+    if (!isNaN(qtyValue) && qtyValue > 0) {
       var priceIndex = qtyInput.id.replace("counter_", "");
-      var price = parseFloat(document.getElementById("price_" + priceIndex).innerText.replace("$", ""));
-      totalPayable += price * qty;
+      var priceElement = document.getElementById("price_" + priceIndex);
+      var price = priceElement ? parseFloat(priceElement.innerText.replace("$", "")) : 0;
+      totalPayable += price * qtyValue;
+      qty += qtyValue;
       menuItemSelected = true; // Set the flag to true since a menu item is selected
     }
   }
 
-  if (!menuItemSelected) {
+  if (!menuItemSelected && moviePrice > 0) {
     // No menu item selected, use the movie price directly
     totalPayable = moviePrice;
+    qty = 1; // Set the quantity to 1 for the movie
   } else {
     totalPayable += moviePrice;
   }
-  var points = document.getElementById("points").value;
-  if (points != null)
+
+  var points = parseFloat(document.getElementById("points").value);
+  if (!isNaN(points))
     totalPayable -= points;
+
   document.getElementById("total3").innerHTML = "$" + totalPayable;
   document.getElementById("totalPriceInput").value = totalPayable;
-  document.getElementById("quantityInput").value = qty; 
+  document.getElementById("quantityInput").value = qty;
 }
 
 // Trigger the calculation when the page loads
 window.addEventListener('load', calculateTotalPayable);
 
 </script>
+
+
+
+</html>
+
+
+
+

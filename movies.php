@@ -73,21 +73,21 @@ $movies = $movieController->getMovies();
   <h1>Movies</h1>
   <div class="container">
 
- 
-  <?php
-  foreach ($movies as $movie) {
-    $movie_id = $movie['movie_id'];
-    $movie_name = $movie['movie_name'];
-    $availability = $movie['availability'];
-    $price = $movie['price'];
-    $rating = $movie['rating'];
-    $format = $movie['format'];
-    $image = $movie['image'];
-    ?>
 
-    <div class="item">
-      <img src="<?php echo $image ?>" alt="<?php echo $movie_name ?>">
-      <!-- <h2>
+    <?php
+    foreach ($movies as $movie) {
+      $movie_id = $movie['movie_id'];
+      $movie_name = $movie['movie_name'];
+      $availability = $movie['availability'];
+      $price = $movie['price'];
+      $rating = $movie['rating'];
+      $format = $movie['format'];
+      $image = $movie['image'];
+      ?>
+
+      <div class="item">
+        <img src="<?php echo $image ?>" alt="<?php echo $movie_name ?>">
+        <!-- <h2>
         <?php echo $movie_name ?>
       </h2>
       <p>Status:
@@ -103,23 +103,34 @@ $movies = $movieController->getMovies();
         <?php echo $format ?>
       </p> -->
 
-      <form method="post" action="bookMovie.php">
-      <input type="hidden" name="movie_id" value="<?php echo $movie_id ?>">
-      <input style="width:20%;" type="text" value="$<?php echo $price ?>" disabled>
-      <button type="submit" name="bookNow">Book Now</button>
-    </form>
-     
-    </div>
+        <form method="post" action="bookMovie.php">
+          <input type="hidden" name="movie_id" value="<?php echo $movie_id ?>">
+          <input style="width:20%;" type="text" value="$<?php echo $price ?>" disabled>
 
-    <?php
-  }
+          <?php
+          if (isset($_SESSION['user_id']) === true) {
+            // User is logged in, allow booking
+            ?>
+            <button type="submit" name="bookNow">Book Now</button>
+            <?php
+          } else {
+            // User is not logged in, display message
+            ?>
+            <p>Please <a href="login.php">login</a> to book this movie.</p>
+            <?php
+          }
+          ?>
+        </form>
 
-  if (empty($movies)) {
-    echo "No movies available.";
-  }
-  ?>
+      </div>
 
+      <?php
+    }
 
+    if (empty($movies)) {
+      echo "No movies available.";
+    }
+    ?>
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -128,6 +139,3 @@ $movies = $movieController->getMovies();
   integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
 </html>
-
-
-

@@ -9,19 +9,6 @@ class viewBookingController
     $this->conn = $conn;
   }
 
-  public function getUserIdByEmail($email)
-  {
-    $query = "SELECT user_id FROM login WHERE email = '$email'";
-    $result = mysqli_query($this->conn, $query);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-      $row = mysqli_fetch_assoc($result);
-      return $row['user_id'];
-    } else {
-      echo "Query failed: " . mysqli_error($this->conn);
-      return null;
-    }
-  }
 
   public function getBookingsByUserId($userId)
   {
