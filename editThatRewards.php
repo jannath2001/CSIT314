@@ -38,7 +38,7 @@ $rewardEditController = new rewardUpdateController($conn);
 
 <body>
     <div class="header">
-        <h2>Edit Menu</h2>
+        <h2>Edit rewards</h2>
     </div>
 
     <div class="table-container">

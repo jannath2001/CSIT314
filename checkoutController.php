@@ -67,26 +67,25 @@ class CheckOutController
         // Perform update
     }
 
-    public function updateLoyaltyPoints()
+    public function updateLoyaltyPoints($loyaltyPoints)
     {
         $userId = $_SESSION['user_id'];
 
-        if (isset($_COOKIE['totalPrice'])) {
-            $loyaltyPoints = $_COOKIE['totalPrice'];
+        if ($loyaltyPoints > 0){
             $selectQuery = "SELECT points FROM loyalty_member WHERE user_id = ?";
             $selectStatement = $this->conn->prepare($selectQuery);
             $selectStatement->bind_param("i", $userId);
             $selectStatement->execute();
-
+    
             // Bind the result to $currentPoints
             $currentPoints = 0;
             $selectStatement->bind_result($currentPoints);
             $selectStatement->fetch();
             $selectStatement->close();
-
+    
             // Calculate updated loyalty points
             $updatedPoints = $currentPoints + $loyaltyPoints;
-
+    
             // Update the user's loyalty points in the database
             $updateQuery = "UPDATE loyalty_member SET points = ? WHERE user_id = ?";
             $updateStatement = $this->conn->prepare($updateQuery);

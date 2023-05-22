@@ -41,9 +41,9 @@ if (isset($_SESSION['movie_id'], $_POST['totalPrice'])) {
   $user_id = $_SESSION['user_id'];
   $qty = $_POST["quantity"];
   
-
+  $checkoutController->updateLoyaltyPoints($total);
   $ticket_id = $orderSummary->addTicket($user_id, $seats, $movie_id, $room_id, $total, $date, $timing, $ticketType, $location, $num_of_ticket);
-  var_dump($ticket_id);
+  // var_dump($ticket_id);
   if ($ticket_id !== false) {
     $orderSummary->addBooking($user_id, $movie_id, $ticket_id, $room_id, $date, $timing, $location, $num_of_ticket, $seats);
   } else {

@@ -9,13 +9,12 @@ $checkoutController = new CheckOutController($conn);
 $menu_item = $_POST['menu_item'] ?? [];
 $selectedMenuItems = is_array($menu_item) ? implode(',', $menu_item) : '';
 $checkOutMenu = $checkoutController->get_menuItems($menu_item);
-$checkoutController->updateLoyaltyPoints();
+
 
 // Check if movie_id is set and not empty
 if (isset($_SESSION["movie_id"]) && !empty($_SESSION["movie_id"])) {
   $movie_items = $_SESSION["movie_id"];
   $checkOutMovies = $checkoutController->get_movieItems($movie_items);
-  $checkoutController->updateLoyaltyPoints();
   $movie_name = $checkOutMovies['movie_name'];
   $image1 = $checkOutMovies['image'];
   $price1 = $checkOutMovies['price'];
@@ -29,7 +28,6 @@ if (isset($_SESSION["movie_id"]) && !empty($_SESSION["movie_id"])) {
   $seats = [];
   $length = 0;
   $moviePrice = 0;
-  $checkoutController->updateLoyaltyPoints();
 }
 
 $_SESSION['menu_item'] = $menu_item;

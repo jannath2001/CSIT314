@@ -108,7 +108,6 @@ class movieAllocationController
 
             } else {
                 foreach ($sessionTimings as $timing) {
-                    var_dump($timing);
                     $output .= "<option value='$timing' id=''>$timing</option>";
                     
                 }
