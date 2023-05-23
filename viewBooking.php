@@ -173,6 +173,7 @@ if ($user_id) {
         <?php } ?>
       </tbody>
     </table>
+    
   </body>
   <script>
     function onSelect(e) {
@@ -188,3 +189,4 @@ if ($user_id) {
   echo "User ID not found.";
 }
 ?>
+ <?php include("footer.php");?>

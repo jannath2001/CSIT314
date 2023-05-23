@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("editRewardsController.php");
 include("navBar.php");
-include("footer.php");
+
 // create a new instance of the movie controller
 $rewardsController = new rewardsController($conn);
 
@@ -155,6 +155,7 @@ $rewards = $rewardsController->getAllRewards($conn);
             <a href="addReward.php" class="add-Rewards-button" style = "color:white; text-decoration: none;">Add rewards</a>
         
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>

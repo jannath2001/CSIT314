@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("addAccountController.php");
 // include("navBar.php");
-include("footer.php");
+
 
 // Create an object of addAccountController class
 $addAccountController = new addAccountController($conn);
@@ -174,6 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         </form>
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>

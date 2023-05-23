@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("navBar.php");
 include("movieAllocationController.php");
-include("footer.php");
+
 
 
 $movieAllocationController = new movieAllocationController($conn);
@@ -143,9 +143,11 @@ if (isset($_POST['submit'])) {
         </div>
         </form>
     </div>
+ 
 </body>
 
 <!--footer------------->
+<?php include("footer.php");?>
   
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

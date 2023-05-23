@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("editThatAccountController.php");
 include("navBar.php");
-include("footer.php");
+
 
 $accountEditController = new accountUpdateController($conn);
 ?>
@@ -107,6 +107,7 @@ $accountEditController = new accountUpdateController($conn);
     ?>
         </div>
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>

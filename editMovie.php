@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("navBar.php");
 include("editMovieController.php");
-include("footer.php");
+
 
 
 // create a new instance of the movie controller
@@ -187,6 +187,7 @@ $movies = $movieController->getAllMovies($conn);
         <div class="add-movie-container">
             <a href="addMovie.php" class="add-movie-button" style = "color:white; text-decoration: none;">Add Movie</a>
         </div>
+        <?php include("footer.php");?>
     
 </body>
 

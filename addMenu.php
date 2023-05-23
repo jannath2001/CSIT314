@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("addMenuController.php");
 include("navBar.php");
-include("footer.php");
+
 
 // Create an object of addMenuController class
 $addMenuController = new addMenuController($conn);
@@ -148,6 +148,7 @@ if (isset($_POST['addMenuButton'])) {
 
         </form>
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>

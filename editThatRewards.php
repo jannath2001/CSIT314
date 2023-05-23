@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("editThatRewardController.php");
 include("navBar.php");
-include("footer.php");
+
 
 
 $rewardEditController = new rewardUpdateController($conn);
@@ -118,6 +118,7 @@ $rewardEditController = new rewardUpdateController($conn);
     ?>
         </div>
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>

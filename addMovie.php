@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("addMovieController.php");
 include("navBar.php");
-include("footer.php");
+
 
 
 // Create an object of addMovieController class
@@ -179,6 +179,7 @@ if (isset($_POST['addMovieButton'])) {
             <button type="submit" name="backToEditButton" value="backToEditButton">Back to Edit Movie</button>
         </form>
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>

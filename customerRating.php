@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("navBar.php");
 include("customerRatingController.php");
-include("footer.php");
+
 
 // create a new instance of the movie controller
 $ratingController = new ratingController($conn);
@@ -131,6 +131,8 @@ $rating = $ratingController-> getRating();
         <form style = "margin-left: 54.5%; margin-top: 20px;" action="index.php">  
         <input style ="background-color:#5D3FD3; border-radius:5px;" type="submit" value="Back">
         </form>
+
+        <?php include("footer.php");?>
     
 </body>
 

@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("navBar.php");
 include("salesController.php");
-include("footer.php");
+
 
 // create a new instance of the movie controller
 $monthlyController = new salesController($conn);
@@ -126,6 +126,7 @@ $monthlySales = $monthlyController-> getTotalMonthly();
         <form style = "margin-left: 52%; margin-top: 20px;" action="salesReport.php">  
         <input style ="background-color:#5D3FD3; border-radius:5px;" type="submit" value="Back">
         </form>
+        <?php include("footer.php");?>
     
 </body>
 

@@ -45,6 +45,7 @@
             </div>
         </div>
     </div>
+    <?php include("footer.php");?>
     <script>
         function reviewMe() {
             alert('Review Submitted!');

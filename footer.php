@@ -9,6 +9,14 @@ if (isset($_SESSION['user_type'])) {
 }
 ?>
 
+<style>
+  .box4 {
+    clear: both;
+    position: relative;
+    margin-top: -70%;
+}
+</style>
+
 <!--navigation-------------->
 <div class="box4">
   <div class="column">

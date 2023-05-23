@@ -2,7 +2,6 @@
 <?php
 include("DBTicketBooking.php");
 include("navBar.php");
-include("footer.php");
 include("menuController.php");
 
 $menuController = new MenuController($conn);
@@ -80,6 +79,7 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
       text-align: center; 
       text-transform: uppercase; 
     } 
+
     .container { 
       display: flex; 
       flex-wrap: wrap; 
@@ -88,11 +88,13 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
     } 
     .item { 
       width: 300px; 
+      height: 350px;
       margin: 20px; 
       padding: 20px; 
       background-color: #333; 
       border-radius: 10px; 
       box-shadow: 0 0 10px rgba(255,255,255,0.5); 
+      padding: 10px 10px 30px 10px;
       text-align: center; 
     } 
     .item img { 
@@ -106,10 +108,12 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
     .item h2 { 
       font-size: 24px; 
       margin-bottom: 10px; 
-    } 
+      color:yellow;
+    }
     .item p { 
       font-size: 18px; 
       margin-bottom: 10px; 
+     
     } 
     .item span { 
       font-size: 14px; 
@@ -134,7 +138,9 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
     <div class="container">
 
    
-    <form method="post" action="checkout.php" style="display:flex; flex-direction:row;">
+    <form method="post" action="checkout.php">
+    <div class="container">   
+    
     <?php
     foreach($menu as $menus){
         $menu_id = $menus['menu_id'];
@@ -143,6 +149,7 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
         $price = $menus['price'];
         $image = $menus['image'];
     ?>
+    
         <div class="item">
             <img src="<?php echo $image ?>" alt="<?php echo $item_name ?>">
             <h2><?php echo $item_name ?></h2>
@@ -157,9 +164,11 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
     mysqli_close($conn);
     ?>
     
-    <div style="display:flex; flex-direction:column; margin-top:33%;">
+    <div class = "container" style = "margin-left:800px;">
         <button type="submit">Next</button>
     </div>
+  
+</div>
 </form>
 
 
@@ -173,6 +182,7 @@ if (isset( $_POST["date"], $_POST["time"], $_POST["ticketType"], $_POST["seats"]
      ?>
 
     </div>
+    <?php include("footer.php");?>
 
                 
               </body>

@@ -3,7 +3,7 @@ session_start();
 include("DBTicketBooking.php");
 include("promotionsController.php");
 include("navBar.php");
-include("footer.php");
+
 
 $controller = new RewardsController($conn); // Instantiate the controller
 $rewards = $controller->displayRewards(); // Call the displayRewards() method
@@ -46,7 +46,8 @@ if (isset($_POST['redeem'])) {
     }
 
     .item {
-      width: 300px;
+      width: 350px;
+      height:200px;
       margin: 20px;
       padding: 20px;
       background-color: #333;
@@ -56,10 +57,10 @@ if (isset($_POST['redeem'])) {
     }
 
     .item img {
-      width: 80%;
+      width: 100%;
       height: 70%;
       object-fit: cover;
-      object-position: center;
+      object-position: cover;
     }
 
     .item h2 {
@@ -120,6 +121,8 @@ if (isset($_POST['redeem'])) {
       echo "No promotions available.";
     }
     ?>
+
+<?php include("footer.php");?>
 
 </body>
 

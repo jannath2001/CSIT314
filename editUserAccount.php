@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("editUserAccountController.php");
 include("navBar.php");
-include("footer.php");
+
 
 
 // create a new instance of the movie controller
@@ -149,6 +149,7 @@ $account = $accountController->getAllAccount($conn);
             <a href="addAccount.php" class="add-account-button"style = "color:white; text-decoration: none;" >Add account</a>
         
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>

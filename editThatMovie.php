@@ -2,7 +2,7 @@
 include("DBTicketBooking.php"); // include the database connection file
 include("navBar.php");
 include("editThatMovieController.php");
-include("footer.php");
+
 
 $movieEditController = new movieUpdateController($conn);
 ?>
@@ -159,6 +159,7 @@ $movieEditController = new movieUpdateController($conn);
     ?>
         </div>
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>

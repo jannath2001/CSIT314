@@ -2,7 +2,7 @@
 include("DBTicketBooking.php");
 include("addRewardController.php");
 include("navBar.php");
-include("footer.php");
+
 
 // Create an object of addMenuController class
 $addRewardController = new addRewardController($conn);
@@ -152,6 +152,7 @@ if (isset($_POST['addRewardButton'])) {
 
         </form>
     </div>
+    <?php include("footer.php");?>
 </body>
 
 </html>
